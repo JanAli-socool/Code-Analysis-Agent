@@ -1,0 +1,129 @@
+rules:
+- id: no-print-statements
+  name: No Print Statements in Production Code
+  description: Print statements should be replaced with proper logging
+  type: ast_pattern
+  severity: low
+  enabled: true
+  tags: []
+  ast_pattern: Call
+  ast_condition: isinstance(node.func, ast.Name) and node.func.id == 'print'
+  regex_pattern: null
+  regex_flags: 0
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules: []
+  composite_logic: all
+  references: []
+  recommendation: Use logging module instead of print
+- id: no-bare-except
+  name: No Bare Except Clauses
+  description: Bare except clauses catch all exceptions including system exits
+  type: ast_pattern
+  severity: medium
+  enabled: true
+  tags: []
+  ast_pattern: ExceptHandler
+  ast_condition: node.type is None
+  regex_pattern: null
+  regex_flags: 0
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules: []
+  composite_logic: all
+  references: []
+  recommendation: Specify exception types to catch
+- id: hardcoded-password
+  name: Hardcoded Password/Secret
+  description: Detect hardcoded passwords, secrets, or API keys
+  type: regex_pattern
+  severity: high
+  enabled: true
+  tags: []
+  ast_pattern: null
+  ast_condition: null
+  regex_pattern: (password|secret|api_key|token|private_key)\s*=\s*["\'][^"\']+["\']
+  regex_flags: 2
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules: []
+  composite_logic: all
+  references: []
+  recommendation: Use environment variables or secret management
+- id: sql-injection-risk
+  name: SQL Injection Risk
+  description: String formatting in SQL queries
+  type: regex_pattern
+  severity: high
+  enabled: true
+  tags: []
+  ast_pattern: null
+  ast_condition: null
+  regex_pattern: (execute|query|cursor)\s*\(\s*f["\'].*\{.*\}.*["\']
+  regex_flags: 2
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules: []
+  composite_logic: all
+  references: []
+  recommendation: Use parameterized queries
+- id: eval-usage
+  name: Eval Usage
+  description: Use of eval() function
+  type: ast_pattern
+  severity: high
+  enabled: true
+  tags: []
+  ast_pattern: Call
+  ast_condition: isinstance(node.func, ast.Name) and node.func.id == 'eval'
+  regex_pattern: null
+  regex_flags: 0
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules: []
+  composite_logic: all
+  references: []
+  recommendation: Use ast.literal_eval or safe alternatives
+- id: todo-comments
+  name: TODO/FIXME Comments
+  description: Track TODO and FIXME comments
+  type: regex_pattern
+  severity: info
+  enabled: true
+  tags: []
+  ast_pattern: null
+  ast_condition: null
+  regex_pattern: '#\s*(TODO|FIXME|HACK|BUG):'
+  regex_flags: 2
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules: []
+  composite_logic: all
+  references: []
+  recommendation: Create issue tracker tickets for these
+- id: long-function-composite
+  name: Long Function with High Complexity
+  description: Function is both long and complex
+  type: composite
+  severity: medium
+  enabled: true
+  tags: []
+  ast_pattern: null
+  ast_condition: null
+  regex_pattern: null
+  regex_flags: 0
+  metric_name: null
+  threshold: null
+  comparison: gt
+  sub_rules:
+  - long-function
+  - high-complexity
+  composite_logic: all
+  references: []
+  recommendation: Refactor into smaller, focused functions

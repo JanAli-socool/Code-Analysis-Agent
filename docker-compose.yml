@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # API Server
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - CODE_ANALYSIS_ANALYSIS_WEIGHTS_SECURITY=3.0
+      - CODE_ANALYSIS_ANALYSIS_WEIGHTS_TESTING=2.0
+      - CODE_ANALYSIS_ANALYSIS_WEIGHTS_COMPLEXITY=2.0
+      - CODE_ANALYSIS_ANALYSIS_WEIGHTS_ARCHITECTURE=2.0
+      - CODE_ANALYSIS_EXECUTION_PARALLEL=true
+      - CODE_ANALYSIS_EXECUTION_MAX_WORKERS=4
+      - CODE_ANALYSIS_EXECUTION_CACHE_ENABLED=true
+      - CODE_ANALYSIS_EXECUTION_CACHE_TTL_HOURS=24
+      - CODE_ANALYSIS_INTEGRATIONS_GITHUB_ACTIONS=true
+      - CODE_ANALYSIS_INTEGRATIONS_EXIT_ON_CRITICAL=true
+    volumes:
+      - ./repos:/repos:ro
+      - cache_data:/app/.code_analysis_cache
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Worker for background jobs (optional, for scaling)
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m pro.worker
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - ./repos:/repos:ro
+      - cache_data:/app/.code_analysis_cache
+    restart: unless-stopped
+
+  # Redis for job queue and caching
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Prometheus for metrics (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    restart: unless-stopped
+
+  # Grafana for dashboards (optional)
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  cache_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: code-analysis-network

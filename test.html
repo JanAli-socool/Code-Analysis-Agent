@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Analysis Report - C:\Users\supreme-traders\Documents\Hackathon\code_analysis_agent\test_repos\bad_repo</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1, h2, h3 { color: #1a1a2e; }
+        .score { font-size: 2.5rem; font-weight: bold; }
+        .score.critical { color: #e74c3c; }
+        .score.high { color: #e67e22; }
+        .score.medium { color: #f39c12; }
+        .score.low { color: #27ae60; }
+        .category { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+        .category:last-child { border-bottom: none; }
+        .category-score { font-weight: bold; }
+        .category-score.critical { color: #e74c3c; }
+        .category-score.high { color: #e67e22; }
+        .category-score.medium { color: #f39c12; }
+        .category-score.low { color: #27ae60; }
+        .finding { padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .finding.critical { background: #fdf2f2; border-left: 4px solid #e74c3c; }
+        .finding.high { background: #fef5e7; border-left: 4px solid #e67e22; }
+        .finding.medium { background: #fef9e7; border-left: 4px solid #f39c12; }
+        .finding.low { background: #eafaf1; border-left: 4px solid #27ae60; }
+        .metric-table { width: 100%; border-collapse: collapse; }
+        .metric-table th, .metric-table td { padding: 8px; text-align: left; border-bottom: 1px solid #eee; }
+        .badge { padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; }
+        .badge.critical { background: #e74c3c; color: white; }
+        .badge.high { background: #e67e22; color: white; }
+        .badge.medium { background: #f39c12; color: white; }
+        .badge.low { background: #27ae60; color: white; }
+        .badge.info { background: #3498db; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Code Analysis Report</h1>
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <div>
+            <strong>Repository:</strong> C:\Users\supreme-traders\Documents\Hackathon\code_analysis_agent\test_repos\bad_repo<br>
+            <strong>Analyzed:</strong> 2026-08-29T19:27:27.317688<br>
+            <strong>Files:</strong> 1<br>
+            <strong>Lines:</strong> 87
+        </div>
+        <div style="text-align: right;">
+            <div class="score critical">61.2/100</div>
+            <div>Risk: <span class="badge critical">CRITICAL</span></div>
+            <div style="margin-top: 10px;">Duration: 40ms</div>
+        </div>
+    </div>
+    
+    <h2>Summary</h2>
+    <p>Overall Score: 61.2/100. Analyzed 8 categories. Files: 1. Lines: 87. Strengths: Strong architecture: 100/100, Strong dependencies: 100/100. Weaknesses: Weak security: 16.0/100, Weak testing: 0/100, Weak documentation: 0/100.</p>
+    
+    <h2>Category Scores</h2>
+    <div class="category-table">
+        <div class="category">
+            <span>testing</span>
+            <span class="category-score critical">0.0/100 <span style="font-weight: normal; color: #666;">(weight: 2.0, 7ms)</span></span>
+        </div>
+        <div class="category">
+            <span>documentation</span>
+            <span class="category-score critical">0.0/100 <span style="font-weight: normal; color: #666;">(weight: 0.5, 4ms)</span></span>
+        </div>
+        <div class="category">
+            <span>security</span>
+            <span class="category-score critical">16.0/100 <span style="font-weight: normal; color: #666;">(weight: 3.0, 7ms)</span></span>
+        </div>
+        <div class="category">
+            <span>git_history</span>
+            <span class="category-score high">50.0/100 <span style="font-weight: normal; color: #666;">(weight: 0.5, 1ms)</span></span>
+        </div>
+        <div class="category">
+            <span>complexity</span>
+            <span class="category-score high">65.0/100 <span style="font-weight: normal; color: #666;">(weight: 2.0, 7ms)</span></span>
+        </div>
+        <div class="category">
+            <span>maintainability</span>
+            <span class="category-score low">73.0/100 <span style="font-weight: normal; color: #666;">(weight: 1.5, 4ms)</span></span>
+        </div>
+        <div class="category">
+            <span>architecture</span>
+            <span class="category-score low">100.0/100 <span style="font-weight: normal; color: #666;">(weight: 2.0, 5ms)</span></span>
+        </div>
+        <div class="category">
+            <span>dependencies</span>
+            <span class="category-score low">100.0/100 <span style="font-weight: normal; color: #666;">(weight: 1.0, 4ms)</span></span>
+        </div>
+    </div>
+    
+    <h2>Strengths</h2>
+    <ul><li>Strong architecture: 100/100</li><li>Strong dependencies: 100/100</li>
+    </ul>
+    
+    <h2>Weaknesses</h2>
+    <ul><li>Weak security: 16.0/100</li><li>Weak testing: 0/100</li><li>Weak documentation: 0/100</li>
+    </ul>
+    <h2>Critical/High Findings (11)</h2>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:72</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use environment variables or secret management system</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:73</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use environment variables or secret management system</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:74</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use environment variables or secret management system</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:77</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use json or msgpack for serialization</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:7</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use ast.literal_eval or safe evaluation</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:73</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use environment variables or secret management</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:74</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use environment variables or secret management</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:66</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use parameterized queries</p>
+    </div>
+    <div class="finding critical">
+        <h3><span class="badge critical">CRITICAL</span> Unknown (security)</h3>
+        <p><strong>Location:</strong> messy_code.py:70</p>
+        <p><strong>Description:</strong> N/A</p>
+        <p><strong>Recommendation:</strong> Use subprocess with shell=False</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> No test files found (testing)</h3>
+        <p><strong>Location:</strong> None:None</p>
+        <p><strong>Description:</strong> Repository has 1 source files but no test files</p>
+        <p><strong>Recommendation:</strong> Add unit tests for critical functionality</p>
+    </div>
+    <div class="finding high">
+        <h3><span class="badge high">HIGH</span> Missing README file (documentation)</h3>
+        <p><strong>Location:</strong> .:1</p>
+        <p><strong>Description:</strong> Repository lacks a README.md</p>
+        <p><strong>Recommendation:</strong> Add README with project overview, installation, usage, and contributing</p>
+    </div>
+</body>
+</html>

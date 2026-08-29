@@ -1,0 +1,1003 @@
+{
+  "repository": "C:\\Users\\supreme-traders\\Documents\\Hackathon\\code_analysis_agent\\test_repos\\good_repo",
+  "analyzed_at": "2026-08-29T19:28:06.589604",
+  "overall_score": 80.2,
+  "risk_level": "low",
+  "summary": "Overall Score: 80.2/100. Analyzed 8 categories. Files: 2. Lines: 158. Strengths: Strong security: 100/100, Strong architecture: 100/100, Strong dependencies: 100/100. Weaknesses: Weak testing: 20.0/100, Weak documentation: 0/100.",
+  "strengths": [
+    "Strong security: 100/100",
+    "Strong architecture: 100/100",
+    "Strong dependencies: 100/100",
+    "Strong complexity: 85.0/100",
+    "Strong maintainability: 85.0/100"
+  ],
+  "weaknesses": [
+    "Weak testing: 20.0/100",
+    "Weak documentation: 0/100"
+  ],
+  "files_analyzed": 2,
+  "total_lines": 158,
+  "total_duration_ms": 31.0,
+  "config_hash": "843c2224a9393967",
+  "categories": [
+    {
+      "category": "complexity",
+      "score": 85.0,
+      "weight": 2.0,
+      "duration_ms": 3.6,
+      "error": null,
+      "findings": [
+        {
+          "id": "mi_test_math_utils.py",
+          "category": "maintainability_index",
+          "severity": "medium",
+          "title": "Low maintainability index: 37.1",
+          "description": "File maintainability index below threshold (65)",
+          "file_path": "test_math_utils.py",
+          "line_start": 1,
+          "line_end": 71,
+          "metric_value": 37.11451003620068,
+          "threshold": 65,
+          "recommendation": "Reduce complexity, improve naming, add documentation"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "total_functions",
+          "value": 22
+        },
+        {
+          "name": "avg_functions",
+          "value": 11.0
+        },
+        {
+          "name": "max_functions",
+          "value": 16
+        },
+        {
+          "name": "total_avg_complexity",
+          "value": 7.479166666666666
+        },
+        {
+          "name": "avg_avg_complexity",
+          "value": 3.739583333333333
+        },
+        {
+          "name": "max_avg_complexity",
+          "value": 3.8125
+        },
+        {
+          "name": "total_max_complexity",
+          "value": 13
+        },
+        {
+          "name": "avg_max_complexity",
+          "value": 6.5
+        },
+        {
+          "name": "max_max_complexity",
+          "value": 7
+        },
+        {
+          "name": "total_maintainability_index",
+          "value": 109.01158750824226
+        },
+        {
+          "name": "avg_maintainability_index",
+          "value": 54.50579375412113
+        },
+        {
+          "name": "max_maintainability_index",
+          "value": 71.89707747204157
+        },
+        {
+          "name": "total_loc",
+          "value": 158
+        },
+        {
+          "name": "avg_loc",
+          "value": 79.0
+        },
+        {
+          "name": "max_loc",
+          "value": 87
+        },
+        {
+          "name": "total_lloc",
+          "value": 102
+        },
+        {
+          "name": "avg_lloc",
+          "value": 51.0
+        },
+        {
+          "name": "max_lloc",
+          "value": 55
+        },
+        {
+          "name": "total_comments",
+          "value": 0
+        },
+        {
+          "name": "avg_comments",
+          "value": 0.0
+        },
+        {
+          "name": "max_comments",
+          "value": 0
+        },
+        {
+          "name": "total_blank",
+          "value": 35
+        },
+        {
+          "name": "avg_blank",
+          "value": 17.5
+        },
+        {
+          "name": "max_blank",
+          "value": 19
+        },
+        {
+          "name": "total_cognitive_complexity",
+          "value": 12
+        },
+        {
+          "name": "avg_cognitive_complexity",
+          "value": 6.0
+        },
+        {
+          "name": "max_cognitive_complexity",
+          "value": 12
+        },
+        {
+          "name": "total_max_nesting_depth",
+          "value": 6
+        },
+        {
+          "name": "avg_max_nesting_depth",
+          "value": 3.0
+        },
+        {
+          "name": "max_max_nesting_depth",
+          "value": 3
+        },
+        {
+          "name": "total_halstead_volume",
+          "value": 937.4182735451043
+        },
+        {
+          "name": "avg_halstead_volume",
+          "value": 468.70913677255214
+        },
+        {
+          "name": "max_halstead_volume",
+          "value": 540.9594252033661
+        },
+        {
+          "name": "total_halstead_difficulty",
+          "value": 10.806862745098039
+        },
+        {
+          "name": "avg_halstead_difficulty",
+          "value": 5.4034313725490195
+        },
+        {
+          "name": "max_halstead_difficulty",
+          "value": 8.983333333333333
+        },
+        {
+          "name": "total_halstead_effort",
+          "value": 4547.977410032949
+        },
+        {
+          "name": "avg_halstead_effort",
+          "value": 2273.9887050164743
+        },
+        {
+          "name": "max_halstead_effort",
+          "value": 3561.521987603281
+        },
+        {
+          "name": "total_halstead_bugs",
+          "value": 0.3124727578483681
+        },
+        {
+          "name": "avg_halstead_bugs",
+          "value": 0.15623637892418404
+        },
+        {
+          "name": "max_halstead_bugs",
+          "value": 0.18031980840112202
+        },
+        {
+          "name": "total_files",
+          "value": 2
+        },
+        {
+          "name": "comment_ratio",
+          "value": 0.0
+        },
+        {
+          "name": "complexity_distribution",
+          "value": {
+            "1-5": 18,
+            "6-10": 4,
+            "11-20": 0,
+            "21-50": 0,
+            "50+": 0
+          }
+        }
+      ]
+    },
+    {
+      "category": "security",
+      "score": 100,
+      "weight": 3.0,
+      "duration_ms": 3.6,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_findings",
+          "value": 0
+        },
+        {
+          "name": "critical_findings",
+          "value": 0
+        },
+        {
+          "name": "high_findings",
+          "value": 0
+        },
+        {
+          "name": "medium_findings",
+          "value": 0
+        },
+        {
+          "name": "low_findings",
+          "value": 0
+        },
+        {
+          "name": "high_confidence_findings",
+          "value": 0
+        },
+        {
+          "name": "unique_cwes",
+          "value": 0
+        },
+        {
+          "name": "top_cwe",
+          "value": null
+        }
+      ]
+    },
+    {
+      "category": "testing",
+      "score": 20.0,
+      "weight": 2.0,
+      "duration_ms": 3.7,
+      "error": null,
+      "findings": [
+        {
+          "id": "no_assert_test_math_utils.py_test_fibonacci_base_cases",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_fibonacci_base_cases",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 6,
+          "line_end": 8,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_fibonacci_known_values",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_fibonacci_known_values",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 10,
+          "line_end": 13,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_fibonacci_negative_raises",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_fibonacci_negative_raises",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 15,
+          "line_end": 17,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_prime_numbers",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_prime_numbers",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 21,
+          "line_end": 26,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_non_prime_numbers",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_non_prime_numbers",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 28,
+          "line_end": 33,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_factorial",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_factorial",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 37,
+          "line_end": 41,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_factorial_negative_raises",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_factorial_negative_raises",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 43,
+          "line_end": 45,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_gcd",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_gcd",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 47,
+          "line_end": 50,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_process_data_normal",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_process_data_normal",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 54,
+          "line_end": 59,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_process_data_even_count",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_process_data_even_count",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 61,
+          "line_end": 63,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_process_data_empty",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_process_data_empty",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 65,
+          "line_end": 66,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        },
+        {
+          "id": "no_assert_test_math_utils.py_test_process_data_single",
+          "category": "test_quality",
+          "severity": "medium",
+          "title": "Test without assertions: test_process_data_single",
+          "description": "Test function contains no assertions",
+          "file_path": "test_math_utils.py",
+          "line_start": 68,
+          "line_end": 71,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add assertions to verify behavior"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "test_files_count",
+          "value": 1
+        },
+        {
+          "name": "source_files_count",
+          "value": 1
+        },
+        {
+          "name": "test_to_source_ratio",
+          "value": 1.0
+        },
+        {
+          "name": "total_test_functions",
+          "value": 12
+        },
+        {
+          "name": "total_test_classes",
+          "value": 4
+        },
+        {
+          "name": "total_assertions",
+          "value": 0
+        },
+        {
+          "name": "assertions_per_test",
+          "value": 0.0
+        },
+        {
+          "name": "parametrized_tests",
+          "value": 0
+        },
+        {
+          "name": "fixtures_count",
+          "value": 0
+        },
+        {
+          "name": "uses_pytest",
+          "value": true
+        },
+        {
+          "name": "uses_unittest",
+          "value": false
+        },
+        {
+          "name": "coverage_percent",
+          "value": 100.0
+        },
+        {
+          "name": "covered_files",
+          "value": 2
+        },
+        {
+          "name": "uncovered_files",
+          "value": 0
+        },
+        {
+          "name": "file_coverage",
+          "value": {
+            "math_utils.py": 100.0,
+            "test_math_utils.py": 100.0
+          }
+        },
+        {
+          "name": "mutation_score",
+          "value": 0.0
+        },
+        {
+          "name": "mutants_killed",
+          "value": 0
+        },
+        {
+          "name": "mutants_survived",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "category": "architecture",
+      "score": 100,
+      "weight": 2.0,
+      "duration_ms": 4.9,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_modules",
+          "value": 2
+        },
+        {
+          "name": "total_dependencies",
+          "value": 1
+        },
+        {
+          "name": "avg_fan_out",
+          "value": 1.0
+        },
+        {
+          "name": "avg_instability",
+          "value": 0.5
+        },
+        {
+          "name": "circular_dependencies",
+          "value": 0
+        },
+        {
+          "name": "god_modules",
+          "value": 0
+        },
+        {
+          "name": "layering_violations",
+          "value": 0
+        },
+        {
+          "name": "max_fan_out",
+          "value": 1
+        },
+        {
+          "name": "repository_pattern",
+          "value": false
+        },
+        {
+          "name": "factory_pattern",
+          "value": false
+        },
+        {
+          "name": "dependency_injection",
+          "value": false
+        },
+        {
+          "name": "clean_architecture",
+          "value": false
+        },
+        {
+          "name": "mvc_structure",
+          "value": false
+        }
+      ]
+    },
+    {
+      "category": "maintainability",
+      "score": 85.0,
+      "weight": 1.5,
+      "duration_ms": 1.3,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_functions",
+          "value": 17
+        },
+        {
+          "name": "total_classes",
+          "value": 5
+        },
+        {
+          "name": "avg_function_length",
+          "value": 7.3
+        },
+        {
+          "name": "avg_parameters",
+          "value": 1.1
+        },
+        {
+          "name": "avg_cognitive_complexity",
+          "value": 1.8
+        },
+        {
+          "name": "documented_functions_pct",
+          "value": 29.4
+        },
+        {
+          "name": "typed_functions_pct",
+          "value": 29.4
+        },
+        {
+          "name": "documented_classes_pct",
+          "value": 20.0
+        },
+        {
+          "name": "long_functions",
+          "value": 0
+        },
+        {
+          "name": "excessive_parameters",
+          "value": 0
+        },
+        {
+          "name": "high_complexity_functions",
+          "value": 0
+        },
+        {
+          "name": "large_classes",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "category": "dependencies",
+      "score": 100,
+      "weight": 1.0,
+      "duration_ms": 2.6,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_dependencies",
+          "value": 0
+        },
+        {
+          "name": "outdated_count",
+          "value": 0
+        },
+        {
+          "name": "vulnerabilities_count",
+          "value": 0
+        },
+        {
+          "name": "license_issues_count",
+          "value": 0
+        },
+        {
+          "name": "pinned_dependencies",
+          "value": 0
+        },
+        {
+          "name": "unpinned_dependencies",
+          "value": 0
+        },
+        {
+          "name": "sbom",
+          "value": []
+        }
+      ]
+    },
+    {
+      "category": "documentation",
+      "score": 0,
+      "weight": 0.5,
+      "duration_ms": 2.4,
+      "error": null,
+      "findings": [
+        {
+          "id": "missing_class_doc_test_math_utils.py_TestFibonacci",
+          "category": "class_docstring",
+          "severity": "medium",
+          "title": "Missing class docstring: TestFibonacci",
+          "description": "Class lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 5,
+          "line_end": 17,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add class docstring describing purpose and usage"
+        },
+        {
+          "id": "missing_class_doc_test_math_utils.py_TestPrime",
+          "category": "class_docstring",
+          "severity": "medium",
+          "title": "Missing class docstring: TestPrime",
+          "description": "Class lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 20,
+          "line_end": 33,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add class docstring describing purpose and usage"
+        },
+        {
+          "id": "missing_class_doc_test_math_utils.py_TestMathUtils",
+          "category": "class_docstring",
+          "severity": "medium",
+          "title": "Missing class docstring: TestMathUtils",
+          "description": "Class lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 36,
+          "line_end": 50,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add class docstring describing purpose and usage"
+        },
+        {
+          "id": "missing_class_doc_test_math_utils.py_TestProcessData",
+          "category": "class_docstring",
+          "severity": "medium",
+          "title": "Missing class docstring: TestProcessData",
+          "description": "Class lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 53,
+          "line_end": 71,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add class docstring describing purpose and usage"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_fibonacci_base_cases",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_fibonacci_base_cases",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 6,
+          "line_end": 8,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_fibonacci_known_values",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_fibonacci_known_values",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 10,
+          "line_end": 13,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_fibonacci_negative_raises",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_fibonacci_negative_raises",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 15,
+          "line_end": 17,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_prime_numbers",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_prime_numbers",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 21,
+          "line_end": 26,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_non_prime_numbers",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_non_prime_numbers",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 28,
+          "line_end": 33,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_factorial",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_factorial",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 37,
+          "line_end": 41,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_factorial_negative_raises",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_factorial_negative_raises",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 43,
+          "line_end": 45,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_gcd",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_gcd",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 47,
+          "line_end": 50,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_process_data_normal",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_process_data_normal",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 54,
+          "line_end": 59,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_process_data_even_count",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_process_data_even_count",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 61,
+          "line_end": 63,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_process_data_empty",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_process_data_empty",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 65,
+          "line_end": 66,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_test_math_utils.py_test_process_data_single",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: test_process_data_single",
+          "description": "Public function lacks docstring",
+          "file_path": "test_math_utils.py",
+          "line_start": 68,
+          "line_end": 71,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_readme",
+          "category": "readme",
+          "severity": "high",
+          "title": "Missing README file",
+          "description": "Repository lacks a README.md",
+          "file_path": ".",
+          "line_start": 1,
+          "line_end": 1,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add README with project overview, installation, usage, and contributing"
+        },
+        {
+          "id": "missing_license",
+          "category": "license",
+          "severity": "medium",
+          "title": "Missing LICENSE file",
+          "description": "Repository does not have a license file",
+          "file_path": ".",
+          "line_start": 1,
+          "line_end": 1,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add LICENSE file with appropriate open source license"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "has_readme",
+          "value": false
+        },
+        {
+          "name": "total_modules",
+          "value": 2
+        },
+        {
+          "name": "documented_modules",
+          "value": 0
+        },
+        {
+          "name": "module_doc_coverage",
+          "value": 0.0
+        },
+        {
+          "name": "total_functions",
+          "value": 17
+        },
+        {
+          "name": "documented_functions",
+          "value": 5
+        },
+        {
+          "name": "function_doc_coverage",
+          "value": 29.4
+        },
+        {
+          "name": "total_classes",
+          "value": 5
+        },
+        {
+          "name": "documented_classes",
+          "value": 1
+        },
+        {
+          "name": "class_doc_coverage",
+          "value": 20.0
+        },
+        {
+          "name": "typed_functions",
+          "value": 5
+        },
+        {
+          "name": "type_hint_coverage",
+          "value": 29.4
+        },
+        {
+          "name": "avg_docstring_quality",
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "category": "git_history",
+      "score": 50.0,
+      "weight": 0.5,
+      "duration_ms": 2.4,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_commits",
+          "value": 1
+        },
+        {
+          "name": "unique_authors",
+          "value": 0
+        },
+        {
+          "name": "first_commit_date",
+          "value": "2026-08-29T01:11:48+05:00"
+        },
+        {
+          "name": "last_commit_date",
+          "value": "2026-08-29T01:11:48+05:00"
+        },
+        {
+          "name": "error",
+          "value": "can't compare offset-naive and offset-aware datetimes"
+        }
+      ]
+    }
+  ]
+}

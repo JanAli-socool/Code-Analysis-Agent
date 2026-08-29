@@ -1,0 +1,1350 @@
+{
+  "repository": "C:\\Users\\supreme-traders\\Documents\\Hackathon\\code_analysis_agent\\test_repos\\bad_repo",
+  "analyzed_at": "2026-08-29T19:59:32.529239",
+  "overall_score": 61.2,
+  "risk_level": "critical",
+  "summary": "Overall Score: 61.2/100. Analyzed 8 categories. Files: 1. Lines: 87. Strengths: Strong architecture: 100/100, Strong dependencies: 100/100. Weaknesses: Weak security: 16.0/100, Weak testing: 0/100, Weak documentation: 0/100.",
+  "strengths": [
+    "Strong architecture: 100/100",
+    "Strong dependencies: 100/100"
+  ],
+  "weaknesses": [
+    "Weak security: 16.0/100",
+    "Weak testing: 0/100",
+    "Weak documentation: 0/100"
+  ],
+  "files_analyzed": 1,
+  "total_lines": 87,
+  "total_duration_ms": 22.3,
+  "config_hash": "843c2224a9393967",
+  "categories": [
+    {
+      "category": "complexity",
+      "score": 65.0,
+      "weight": 2.0,
+      "duration_ms": 2.0,
+      "error": null,
+      "findings": [
+        {
+          "id": "cc_messy_code.py_bad_function_10",
+          "category": "cyclomatic_complexity",
+          "severity": "medium",
+          "title": "High cyclomatic complexity: bad_function",
+          "description": "Function has cyclomatic complexity 17 (threshold: 15)",
+          "file_path": "messy_code.py",
+          "line_start": 10,
+          "line_end": 31,
+          "metric_value": 17,
+          "threshold": 15,
+          "recommendation": "Decompose into smaller functions; extract conditional logic"
+        },
+        {
+          "id": "mi_messy_code.py",
+          "category": "maintainability_index",
+          "severity": "medium",
+          "title": "Low maintainability index: 31.1",
+          "description": "File maintainability index below threshold (65)",
+          "file_path": "messy_code.py",
+          "line_start": 1,
+          "line_end": 87,
+          "metric_value": 31.077568348388834,
+          "threshold": 65,
+          "recommendation": "Reduce complexity, improve naming, add documentation"
+        },
+        {
+          "id": "nesting_messy_code.py",
+          "category": "nesting_depth",
+          "severity": "medium",
+          "title": "Excessive nesting depth: 17",
+          "description": "Maximum nesting depth exceeds threshold (4)",
+          "file_path": "messy_code.py",
+          "line_start": 1,
+          "line_end": 87,
+          "metric_value": 17,
+          "threshold": 4,
+          "recommendation": "Extract nested logic into functions; use guard clauses"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "total_functions",
+          "value": 37
+        },
+        {
+          "name": "avg_functions",
+          "value": 37.0
+        },
+        {
+          "name": "max_functions",
+          "value": 37
+        },
+        {
+          "name": "total_avg_complexity",
+          "value": 1.5945945945945945
+        },
+        {
+          "name": "avg_avg_complexity",
+          "value": 1.5945945945945945
+        },
+        {
+          "name": "max_avg_complexity",
+          "value": 1.5945945945945945
+        },
+        {
+          "name": "total_max_complexity",
+          "value": 17
+        },
+        {
+          "name": "avg_max_complexity",
+          "value": 17.0
+        },
+        {
+          "name": "max_max_complexity",
+          "value": 17
+        },
+        {
+          "name": "total_maintainability_index",
+          "value": 31.077568348388834
+        },
+        {
+          "name": "avg_maintainability_index",
+          "value": 31.077568348388834
+        },
+        {
+          "name": "max_maintainability_index",
+          "value": 31.077568348388834
+        },
+        {
+          "name": "total_loc",
+          "value": 87
+        },
+        {
+          "name": "avg_loc",
+          "value": 87.0
+        },
+        {
+          "name": "max_loc",
+          "value": 87
+        },
+        {
+          "name": "total_lloc",
+          "value": 109
+        },
+        {
+          "name": "avg_lloc",
+          "value": 109.0
+        },
+        {
+          "name": "max_lloc",
+          "value": 109
+        },
+        {
+          "name": "total_comments",
+          "value": 0
+        },
+        {
+          "name": "avg_comments",
+          "value": 0.0
+        },
+        {
+          "name": "max_comments",
+          "value": 0
+        },
+        {
+          "name": "total_blank",
+          "value": 8
+        },
+        {
+          "name": "avg_blank",
+          "value": 8.0
+        },
+        {
+          "name": "max_blank",
+          "value": 8
+        },
+        {
+          "name": "total_cognitive_complexity",
+          "value": 21
+        },
+        {
+          "name": "avg_cognitive_complexity",
+          "value": 21.0
+        },
+        {
+          "name": "max_cognitive_complexity",
+          "value": 21
+        },
+        {
+          "name": "total_max_nesting_depth",
+          "value": 17
+        },
+        {
+          "name": "avg_max_nesting_depth",
+          "value": 17.0
+        },
+        {
+          "name": "max_max_nesting_depth",
+          "value": 17
+        },
+        {
+          "name": "total_halstead_volume",
+          "value": 314.0409981189452
+        },
+        {
+          "name": "avg_halstead_volume",
+          "value": 314.0409981189452
+        },
+        {
+          "name": "max_halstead_volume",
+          "value": 314.0409981189452
+        },
+        {
+          "name": "total_halstead_difficulty",
+          "value": 2.3333333333333335
+        },
+        {
+          "name": "avg_halstead_difficulty",
+          "value": 2.3333333333333335
+        },
+        {
+          "name": "max_halstead_difficulty",
+          "value": 2.3333333333333335
+        },
+        {
+          "name": "total_halstead_effort",
+          "value": 732.7623289442055
+        },
+        {
+          "name": "avg_halstead_effort",
+          "value": 732.7623289442055
+        },
+        {
+          "name": "max_halstead_effort",
+          "value": 732.7623289442055
+        },
+        {
+          "name": "total_halstead_bugs",
+          "value": 0.10468033270631506
+        },
+        {
+          "name": "avg_halstead_bugs",
+          "value": 0.10468033270631506
+        },
+        {
+          "name": "max_halstead_bugs",
+          "value": 0.10468033270631506
+        },
+        {
+          "name": "total_files",
+          "value": 1
+        },
+        {
+          "name": "comment_ratio",
+          "value": 0.0
+        },
+        {
+          "name": "complexity_distribution",
+          "value": {
+            "1-5": 35,
+            "6-10": 1,
+            "11-20": 1,
+            "21-50": 0,
+            "50+": 0
+          }
+        }
+      ]
+    },
+    {
+      "category": "security",
+      "score": 16.0,
+      "weight": 3.0,
+      "duration_ms": 1.0,
+      "error": null,
+      "findings": [
+        {
+          "id": "custom_hardcoded-secret_messy_code.py_72",
+          "rule_id": "CUSTOM_HARDCODED-SECRET",
+          "severity": "high",
+          "confidence": "high",
+          "message": "Hardcoded secret detected",
+          "file_path": "messy_code.py",
+          "line_start": 72,
+          "line_end": 72,
+          "column_start": 1,
+          "column_end": 22,
+          "code_snippet": "password = \"admin123\"",
+          "cwe": "CWE-798",
+          "owasp": null,
+          "recommendation": "Use environment variables or secret management system",
+          "references": null
+        },
+        {
+          "id": "custom_hardcoded-secret_messy_code.py_73",
+          "rule_id": "CUSTOM_HARDCODED-SECRET",
+          "severity": "high",
+          "confidence": "high",
+          "message": "Hardcoded secret detected",
+          "file_path": "messy_code.py",
+          "line_start": 73,
+          "line_end": 73,
+          "column_start": 1,
+          "column_end": 32,
+          "code_snippet": "api_key = \"sk-1234567890abcdef\"",
+          "cwe": "CWE-798",
+          "owasp": null,
+          "recommendation": "Use environment variables or secret management system",
+          "references": null
+        },
+        {
+          "id": "custom_hardcoded-secret_messy_code.py_74",
+          "rule_id": "CUSTOM_HARDCODED-SECRET",
+          "severity": "high",
+          "confidence": "high",
+          "message": "Hardcoded secret detected",
+          "file_path": "messy_code.py",
+          "line_start": 74,
+          "line_end": 74,
+          "column_start": 1,
+          "column_end": 28,
+          "code_snippet": "secret = \"super-secret-key\"",
+          "cwe": "CWE-798",
+          "owasp": null,
+          "recommendation": "Use environment variables or secret management system",
+          "references": null
+        },
+        {
+          "id": "custom_pickle-loads_messy_code.py_77",
+          "rule_id": "CUSTOM_PICKLE-LOADS",
+          "severity": "high",
+          "confidence": "high",
+          "message": "Unsafe pickle deserialization",
+          "file_path": "messy_code.py",
+          "line_start": 77,
+          "line_end": 77,
+          "column_start": 12,
+          "column_end": 25,
+          "code_snippet": "return pickle.loads(data)",
+          "cwe": "CWE-502",
+          "owasp": null,
+          "recommendation": "Use json or msgpack for serialization",
+          "references": null
+        },
+        {
+          "id": "custom_eval-usage_messy_code.py_7",
+          "rule_id": "CUSTOM_EVAL-USAGE",
+          "severity": "high",
+          "confidence": "high",
+          "message": "Use of eval() - code injection risk",
+          "file_path": "messy_code.py",
+          "line_start": 7,
+          "line_end": 7,
+          "column_start": 5,
+          "column_end": 10,
+          "code_snippet": "eval(user_data)",
+          "cwe": "CWE-95",
+          "owasp": null,
+          "recommendation": "Use ast.literal_eval or safe evaluation",
+          "references": null
+        },
+        {
+          "id": "ast_hardcoded-cred_messy_code.py_73",
+          "rule_id": "AST_HARDCODED-CRED",
+          "severity": "high",
+          "confidence": "medium",
+          "message": "Hardcoded credential in variable 'api_key'",
+          "file_path": "messy_code.py",
+          "line_start": 73,
+          "line_end": 73,
+          "column_start": 0,
+          "column_end": 31,
+          "code_snippet": "api_key = \"sk-1234567890abcdef\"",
+          "cwe": "CWE-798",
+          "owasp": null,
+          "recommendation": "Use environment variables or secret management",
+          "references": null
+        },
+        {
+          "id": "ast_hardcoded-cred_messy_code.py_74",
+          "rule_id": "AST_HARDCODED-CRED",
+          "severity": "high",
+          "confidence": "medium",
+          "message": "Hardcoded credential in variable 'secret'",
+          "file_path": "messy_code.py",
+          "line_start": 74,
+          "line_end": 74,
+          "column_start": 0,
+          "column_end": 27,
+          "code_snippet": "secret = \"super-secret-key\"",
+          "cwe": "CWE-798",
+          "owasp": null,
+          "recommendation": "Use environment variables or secret management",
+          "references": null
+        },
+        {
+          "id": "ast_sql-concat_messy_code.py_66",
+          "rule_id": "AST_SQL-CONCAT",
+          "severity": "high",
+          "confidence": "medium",
+          "message": "SQL query built via string concatenation",
+          "file_path": "messy_code.py",
+          "line_start": 66,
+          "line_end": 66,
+          "column_start": 12,
+          "column_end": 67,
+          "code_snippet": "query = \"SELECT * FROM users WHERE id = \" + user_id",
+          "cwe": "CWE-89",
+          "owasp": null,
+          "recommendation": "Use parameterized queries",
+          "references": null
+        },
+        {
+          "id": "ast_shell-true_messy_code.py_70",
+          "rule_id": "AST_SHELL-TRUE",
+          "severity": "critical",
+          "confidence": "medium",
+          "message": "subprocess called with shell=True",
+          "file_path": "messy_code.py",
+          "line_start": 70,
+          "line_end": 70,
+          "column_start": 11,
+          "column_end": 60,
+          "code_snippet": "return subprocess.run(cmd, shell=True).stdout",
+          "cwe": "CWE-78",
+          "owasp": null,
+          "recommendation": "Use subprocess with shell=False",
+          "references": null
+        }
+      ],
+      "metrics": [
+        {
+          "name": "total_findings",
+          "value": 9
+        },
+        {
+          "name": "critical_findings",
+          "value": 1
+        },
+        {
+          "name": "high_findings",
+          "value": 8
+        },
+        {
+          "name": "medium_findings",
+          "value": 0
+        },
+        {
+          "name": "low_findings",
+          "value": 0
+        },
+        {
+          "name": "high_confidence_findings",
+          "value": 5
+        },
+        {
+          "name": "unique_cwes",
+          "value": 5
+        },
+        {
+          "name": "top_cwe",
+          "value": "CWE-798"
+        }
+      ]
+    },
+    {
+      "category": "testing",
+      "score": 0,
+      "weight": 2.0,
+      "duration_ms": 3.3,
+      "error": null,
+      "findings": [
+        {
+          "id": "no_test_files",
+          "category": "test_coverage",
+          "severity": "high",
+          "title": "No test files found",
+          "description": "Repository has 1 source files but no test files",
+          "file_path": null,
+          "line_start": null,
+          "line_end": null,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add unit tests for critical functionality"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "test_files_count",
+          "value": 0
+        },
+        {
+          "name": "source_files_count",
+          "value": 1
+        },
+        {
+          "name": "test_to_source_ratio",
+          "value": 0.0
+        },
+        {
+          "name": "total_test_functions",
+          "value": 0
+        },
+        {
+          "name": "total_test_classes",
+          "value": 0
+        },
+        {
+          "name": "total_assertions",
+          "value": 0
+        },
+        {
+          "name": "assertions_per_test",
+          "value": 0.0
+        },
+        {
+          "name": "parametrized_tests",
+          "value": 0
+        },
+        {
+          "name": "fixtures_count",
+          "value": 0
+        },
+        {
+          "name": "uses_pytest",
+          "value": false
+        },
+        {
+          "name": "uses_unittest",
+          "value": false
+        },
+        {
+          "name": "coverage_percent",
+          "value": 0.0
+        },
+        {
+          "name": "covered_files",
+          "value": 0
+        },
+        {
+          "name": "uncovered_files",
+          "value": 1
+        },
+        {
+          "name": "file_coverage",
+          "value": {
+            "messy_code.py": 0.0
+          }
+        },
+        {
+          "name": "mutation_score",
+          "value": 0.0
+        },
+        {
+          "name": "mutants_killed",
+          "value": 0
+        },
+        {
+          "name": "mutants_survived",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "category": "architecture",
+      "score": 100,
+      "weight": 2.0,
+      "duration_ms": 2.3,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_modules",
+          "value": 0
+        },
+        {
+          "name": "total_dependencies",
+          "value": 0
+        },
+        {
+          "name": "avg_fan_out",
+          "value": 0.0
+        },
+        {
+          "name": "avg_instability",
+          "value": 0
+        },
+        {
+          "name": "circular_dependencies",
+          "value": 0
+        },
+        {
+          "name": "god_modules",
+          "value": 0
+        },
+        {
+          "name": "layering_violations",
+          "value": 0
+        },
+        {
+          "name": "max_fan_out",
+          "value": 0
+        },
+        {
+          "name": "repository_pattern",
+          "value": false
+        },
+        {
+          "name": "factory_pattern",
+          "value": false
+        },
+        {
+          "name": "dependency_injection",
+          "value": false
+        },
+        {
+          "name": "clean_architecture",
+          "value": false
+        },
+        {
+          "name": "mvc_structure",
+          "value": false
+        }
+      ]
+    },
+    {
+      "category": "maintainability",
+      "score": 73.0,
+      "weight": 1.5,
+      "duration_ms": 1.2,
+      "error": null,
+      "findings": [
+        {
+          "id": "many_params_messy_code.py_bad_function",
+          "category": "parameter_count",
+          "severity": "medium",
+          "title": "Too many parameters: bad_function",
+          "description": "Function has 16 parameters (threshold: 5)",
+          "file_path": "messy_code.py",
+          "line_start": 10,
+          "line_end": 10,
+          "metric_value": 16,
+          "threshold": 5,
+          "recommendation": "Use parameter object or dataclass"
+        },
+        {
+          "id": "high_complexity_messy_code.py_bad_function",
+          "category": "cognitive_complexity",
+          "severity": "medium",
+          "title": "High cognitive complexity: bad_function",
+          "description": "Function cognitive complexity is 17",
+          "file_path": "messy_code.py",
+          "line_start": 10,
+          "line_end": 31,
+          "metric_value": 17,
+          "threshold": 10,
+          "recommendation": "Simplify conditional logic; extract methods"
+        },
+        {
+          "id": "large_class_messy_code.py_GodClass",
+          "category": "class_size",
+          "severity": "medium",
+          "title": "Large class: GodClass",
+          "description": "Class has 30 methods (threshold: 20)",
+          "file_path": "messy_code.py",
+          "line_start": 33,
+          "line_end": 63,
+          "metric_value": 30,
+          "threshold": 20,
+          "recommendation": "Split class; apply Single Responsibility Principle"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "total_functions",
+          "value": 36
+        },
+        {
+          "name": "total_classes",
+          "value": 1
+        },
+        {
+          "name": "avg_function_length",
+          "value": 2.0
+        },
+        {
+          "name": "avg_parameters",
+          "value": 1.4
+        },
+        {
+          "name": "avg_cognitive_complexity",
+          "value": 1.6
+        },
+        {
+          "name": "documented_functions_pct",
+          "value": 0.0
+        },
+        {
+          "name": "typed_functions_pct",
+          "value": 0.0
+        },
+        {
+          "name": "documented_classes_pct",
+          "value": 0.0
+        },
+        {
+          "name": "long_functions",
+          "value": 0
+        },
+        {
+          "name": "excessive_parameters",
+          "value": 1
+        },
+        {
+          "name": "high_complexity_functions",
+          "value": 1
+        },
+        {
+          "name": "large_classes",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "category": "dependencies",
+      "score": 100,
+      "weight": 1.0,
+      "duration_ms": 2.2,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_dependencies",
+          "value": 0
+        },
+        {
+          "name": "outdated_count",
+          "value": 0
+        },
+        {
+          "name": "vulnerabilities_count",
+          "value": 0
+        },
+        {
+          "name": "license_issues_count",
+          "value": 0
+        },
+        {
+          "name": "pinned_dependencies",
+          "value": 0
+        },
+        {
+          "name": "unpinned_dependencies",
+          "value": 0
+        },
+        {
+          "name": "sbom",
+          "value": []
+        }
+      ]
+    },
+    {
+      "category": "documentation",
+      "score": 0,
+      "weight": 0.5,
+      "duration_ms": 2.4,
+      "error": null,
+      "findings": [
+        {
+          "id": "missing_func_doc_messy_code.py_process_user_input",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: process_user_input",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 6,
+          "line_end": 8,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_bad_function",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: bad_function",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 10,
+          "line_end": 31,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_class_doc_messy_code.py_GodClass",
+          "category": "class_docstring",
+          "severity": "medium",
+          "title": "Missing class docstring: GodClass",
+          "description": "Class lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 33,
+          "line_end": 63,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add class docstring describing purpose and usage"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_sql_injection",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: sql_injection",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 65,
+          "line_end": 67,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_execute",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: execute",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 69,
+          "line_end": 70,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_unpickle_data",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: unpickle_data",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 76,
+          "line_end": 77,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_complex_nested_loops",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: complex_nested_loops",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 79,
+          "line_end": 87,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method1",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method1",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 34,
+          "line_end": 34,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method2",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method2",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 35,
+          "line_end": 35,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method3",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method3",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 36,
+          "line_end": 36,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method4",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method4",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 37,
+          "line_end": 37,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method5",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method5",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 38,
+          "line_end": 38,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method6",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method6",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 39,
+          "line_end": 39,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method7",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method7",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 40,
+          "line_end": 40,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method8",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method8",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 41,
+          "line_end": 41,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method9",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method9",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 42,
+          "line_end": 42,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method10",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method10",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 43,
+          "line_end": 43,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method11",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method11",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 44,
+          "line_end": 44,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method12",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method12",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 45,
+          "line_end": 45,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method13",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method13",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 46,
+          "line_end": 46,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method14",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method14",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 47,
+          "line_end": 47,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method15",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method15",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 48,
+          "line_end": 48,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method16",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method16",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 49,
+          "line_end": 49,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method17",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method17",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 50,
+          "line_end": 50,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method18",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method18",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 51,
+          "line_end": 51,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method19",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method19",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 52,
+          "line_end": 52,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method20",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method20",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 53,
+          "line_end": 53,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method21",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method21",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 54,
+          "line_end": 54,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method22",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method22",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 55,
+          "line_end": 55,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method23",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method23",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 56,
+          "line_end": 56,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method24",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method24",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 57,
+          "line_end": 57,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method25",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method25",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 58,
+          "line_end": 58,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method26",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method26",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 59,
+          "line_end": 59,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method27",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method27",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 60,
+          "line_end": 60,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method28",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method28",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 61,
+          "line_end": 61,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method29",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method29",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 62,
+          "line_end": 62,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_func_doc_messy_code.py_method30",
+          "category": "function_docstring",
+          "severity": "medium",
+          "title": "Missing function docstring: method30",
+          "description": "Public function lacks docstring",
+          "file_path": "messy_code.py",
+          "line_start": 63,
+          "line_end": 63,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+        },
+        {
+          "id": "missing_readme",
+          "category": "readme",
+          "severity": "high",
+          "title": "Missing README file",
+          "description": "Repository lacks a README.md",
+          "file_path": ".",
+          "line_start": 1,
+          "line_end": 1,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add README with project overview, installation, usage, and contributing"
+        },
+        {
+          "id": "missing_license",
+          "category": "license",
+          "severity": "medium",
+          "title": "Missing LICENSE file",
+          "description": "Repository does not have a license file",
+          "file_path": ".",
+          "line_start": 1,
+          "line_end": 1,
+          "metric_value": 0,
+          "threshold": 1,
+          "recommendation": "Add LICENSE file with appropriate open source license"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "has_readme",
+          "value": false
+        },
+        {
+          "name": "total_modules",
+          "value": 1
+        },
+        {
+          "name": "documented_modules",
+          "value": 0
+        },
+        {
+          "name": "module_doc_coverage",
+          "value": 0.0
+        },
+        {
+          "name": "total_functions",
+          "value": 36
+        },
+        {
+          "name": "documented_functions",
+          "value": 0
+        },
+        {
+          "name": "function_doc_coverage",
+          "value": 0.0
+        },
+        {
+          "name": "total_classes",
+          "value": 1
+        },
+        {
+          "name": "documented_classes",
+          "value": 0
+        },
+        {
+          "name": "class_doc_coverage",
+          "value": 0.0
+        },
+        {
+          "name": "typed_functions",
+          "value": 0
+        },
+        {
+          "name": "type_hint_coverage",
+          "value": 0.0
+        },
+        {
+          "name": "avg_docstring_quality",
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "category": "git_history",
+      "score": 50.0,
+      "weight": 0.5,
+      "duration_ms": 2.4,
+      "error": null,
+      "findings": [],
+      "metrics": [
+        {
+          "name": "total_commits",
+          "value": 1
+        },
+        {
+          "name": "unique_authors",
+          "value": 0
+        },
+        {
+          "name": "first_commit_date",
+          "value": "2026-08-29T01:11:49+05:00"
+        },
+        {
+          "name": "last_commit_date",
+          "value": "2026-08-29T01:11:49+05:00"
+        },
+        {
+          "name": "error",
+          "value": "can't compare offset-naive and offset-aware datetimes"
+        }
+      ]
+    }
+  ]
+}

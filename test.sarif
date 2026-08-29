@@ -1,0 +1,1751 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Code Analysis Agent",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/code-analysis-agent",
+          "rules": [
+            {
+              "id": "CA0001",
+              "name": "High cyclomatic complexity: bad_function",
+              "shortDescription": {
+                "text": "Function has cyclomatic complexity 17 (threshold: 15)"
+              },
+              "fullDescription": {
+                "text": "Decompose into smaller functions; extract conditional logic"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "complexity"
+              }
+            },
+            {
+              "id": "CA0002",
+              "name": "Low maintainability index: 31.1",
+              "shortDescription": {
+                "text": "File maintainability index below threshold (65)"
+              },
+              "fullDescription": {
+                "text": "Reduce complexity, improve naming, add documentation"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "complexity"
+              }
+            },
+            {
+              "id": "CA0003",
+              "name": "Excessive nesting depth: 17",
+              "shortDescription": {
+                "text": "Maximum nesting depth exceeds threshold (4)"
+              },
+              "fullDescription": {
+                "text": "Extract nested logic into functions; use guard clauses"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "complexity"
+              }
+            },
+            {
+              "id": "CA0004",
+              "name": "Unknown",
+              "shortDescription": {
+                "text": ""
+              },
+              "fullDescription": {
+                "text": "Use environment variables or secret management system"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "category": "security"
+              }
+            },
+            {
+              "id": "CA0005",
+              "name": "No test files found",
+              "shortDescription": {
+                "text": "Repository has 1 source files but no test files"
+              },
+              "fullDescription": {
+                "text": "Add unit tests for critical functionality"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "category": "testing"
+              }
+            },
+            {
+              "id": "CA0006",
+              "name": "Too many parameters: bad_function",
+              "shortDescription": {
+                "text": "Function has 16 parameters (threshold: 5)"
+              },
+              "fullDescription": {
+                "text": "Use parameter object or dataclass"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "maintainability"
+              }
+            },
+            {
+              "id": "CA0007",
+              "name": "High cognitive complexity: bad_function",
+              "shortDescription": {
+                "text": "Function cognitive complexity is 17"
+              },
+              "fullDescription": {
+                "text": "Simplify conditional logic; extract methods"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "maintainability"
+              }
+            },
+            {
+              "id": "CA0008",
+              "name": "Large class: GodClass",
+              "shortDescription": {
+                "text": "Class has 30 methods (threshold: 20)"
+              },
+              "fullDescription": {
+                "text": "Split class; apply Single Responsibility Principle"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "maintainability"
+              }
+            },
+            {
+              "id": "CA0009",
+              "name": "Missing function docstring: process_user_input",
+              "shortDescription": {
+                "text": "Public function lacks docstring"
+              },
+              "fullDescription": {
+                "text": "Add docstring describing purpose, args, returns, and exceptions"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "documentation"
+              }
+            },
+            {
+              "id": "CA0010",
+              "name": "Missing class docstring: GodClass",
+              "shortDescription": {
+                "text": "Class lacks docstring"
+              },
+              "fullDescription": {
+                "text": "Add class docstring describing purpose and usage"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "documentation"
+              }
+            },
+            {
+              "id": "CA0011",
+              "name": "Missing README file",
+              "shortDescription": {
+                "text": "Repository lacks a README.md"
+              },
+              "fullDescription": {
+                "text": "Add README with project overview, installation, usage, and contributing"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "category": "documentation"
+              }
+            },
+            {
+              "id": "CA0012",
+              "name": "Missing LICENSE file",
+              "shortDescription": {
+                "text": "Repository does not have a license file"
+              },
+              "fullDescription": {
+                "text": "Add LICENSE file with appropriate open source license"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "category": "documentation"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CA0001",
+          "level": "warning",
+          "message": {
+            "text": "Function has cyclomatic complexity 17 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 10,
+                  "endLine": 31,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "complexity",
+            "metric_value": 17,
+            "threshold": 15,
+            "recommendation": "Decompose into smaller functions; extract conditional logic"
+          }
+        },
+        {
+          "ruleId": "CA0002",
+          "level": "warning",
+          "message": {
+            "text": "File maintainability index below threshold (65)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 87,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "complexity",
+            "metric_value": 31.077568348388834,
+            "threshold": 65,
+            "recommendation": "Reduce complexity, improve naming, add documentation"
+          }
+        },
+        {
+          "ruleId": "CA0003",
+          "level": "warning",
+          "message": {
+            "text": "Maximum nesting depth exceeds threshold (4)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 87,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "complexity",
+            "metric_value": 17,
+            "threshold": 4,
+            "recommendation": "Extract nested logic into functions; use guard clauses"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Hardcoded secret detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 72,
+                  "endLine": 72,
+                  "startColumn": 1,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use environment variables or secret management system"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Hardcoded secret detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 73,
+                  "endLine": 73,
+                  "startColumn": 1,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use environment variables or secret management system"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Hardcoded secret detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 74,
+                  "endLine": 74,
+                  "startColumn": 1,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use environment variables or secret management system"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Unsafe pickle deserialization"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 77,
+                  "endLine": 77,
+                  "startColumn": 12,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use json or msgpack for serialization"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Use of eval() - code injection risk"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 7,
+                  "endLine": 7,
+                  "startColumn": 5,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use ast.literal_eval or safe evaluation"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Hardcoded credential in variable 'api_key'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 73,
+                  "endLine": 73,
+                  "startColumn": 0,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use environment variables or secret management"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "Hardcoded credential in variable 'secret'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 74,
+                  "endLine": 74,
+                  "startColumn": 0,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use environment variables or secret management"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "SQL query built via string concatenation"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 66,
+                  "endLine": 66,
+                  "startColumn": 12,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use parameterized queries"
+          }
+        },
+        {
+          "ruleId": "CA0004",
+          "level": "error",
+          "message": {
+            "text": "subprocess called with shell=True"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 70,
+                  "endLine": 70,
+                  "startColumn": 11,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "metric_value": null,
+            "threshold": null,
+            "recommendation": "Use subprocess with shell=False"
+          }
+        },
+        {
+          "ruleId": "CA0005",
+          "level": "error",
+          "message": {
+            "text": "Repository has 1 source files but no test files"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "."
+                },
+                "region": {
+                  "startLine": null,
+                  "endLine": null,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "testing",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add unit tests for critical functionality"
+          }
+        },
+        {
+          "ruleId": "CA0006",
+          "level": "warning",
+          "message": {
+            "text": "Function has 16 parameters (threshold: 5)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 10,
+                  "endLine": 10,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "maintainability",
+            "metric_value": 16,
+            "threshold": 5,
+            "recommendation": "Use parameter object or dataclass"
+          }
+        },
+        {
+          "ruleId": "CA0007",
+          "level": "warning",
+          "message": {
+            "text": "Function cognitive complexity is 17"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 10,
+                  "endLine": 31,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "maintainability",
+            "metric_value": 17,
+            "threshold": 10,
+            "recommendation": "Simplify conditional logic; extract methods"
+          }
+        },
+        {
+          "ruleId": "CA0008",
+          "level": "warning",
+          "message": {
+            "text": "Class has 30 methods (threshold: 20)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 33,
+                  "endLine": 63,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "maintainability",
+            "metric_value": 30,
+            "threshold": 20,
+            "recommendation": "Split class; apply Single Responsibility Principle"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 6,
+                  "endLine": 8,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 10,
+                  "endLine": 31,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0010",
+          "level": "warning",
+          "message": {
+            "text": "Class lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 33,
+                  "endLine": 63,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add class docstring describing purpose and usage"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 65,
+                  "endLine": 67,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 69,
+                  "endLine": 70,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 76,
+                  "endLine": 77,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 79,
+                  "endLine": 87,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 34,
+                  "endLine": 34,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 35,
+                  "endLine": 35,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 36,
+                  "endLine": 36,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 37,
+                  "endLine": 37,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 39,
+                  "endLine": 39,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 40,
+                  "endLine": 40,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 41,
+                  "endLine": 41,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 42,
+                  "endLine": 42,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 43,
+                  "endLine": 43,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 44,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 45,
+                  "endLine": 45,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 46,
+                  "endLine": 46,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 48,
+                  "endLine": 48,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 49,
+                  "endLine": 49,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 50,
+                  "endLine": 50,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 51,
+                  "endLine": 51,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 52,
+                  "endLine": 52,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 53,
+                  "endLine": 53,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 54,
+                  "endLine": 54,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 55,
+                  "endLine": 55,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 56,
+                  "endLine": 56,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 57,
+                  "endLine": 57,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 58,
+                  "endLine": 58,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 59,
+                  "endLine": 59,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 60,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 61,
+                  "endLine": 61,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 62,
+                  "endLine": 62,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0009",
+          "level": "warning",
+          "message": {
+            "text": "Public function lacks docstring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "messy_code.py"
+                },
+                "region": {
+                  "startLine": 63,
+                  "endLine": 63,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add docstring describing purpose, args, returns, and exceptions"
+          }
+        },
+        {
+          "ruleId": "CA0011",
+          "level": "error",
+          "message": {
+            "text": "Repository lacks a README.md"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "."
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add README with project overview, installation, usage, and contributing"
+          }
+        },
+        {
+          "ruleId": "CA0012",
+          "level": "warning",
+          "message": {
+            "text": "Repository does not have a license file"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "."
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "documentation",
+            "metric_value": 0,
+            "threshold": 1,
+            "recommendation": "Add LICENSE file with appropriate open source license"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+radon>=6.0.0
+bandit>=1.7.0
+gitpython>=3.1.0
+pytest>=7.0.0
+pydantic>=2.0.0
+rich>=13.0.0

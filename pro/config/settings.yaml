@@ -1,0 +1,144 @@
+# Code Analysis Agent - Professional Configuration
+# All weights, thresholds, and behavior controlled here
+
+analysis:
+  # Skill weights - calibrated for technical due diligence
+  weights:
+    complexity: 2.0
+    security: 3.0
+    testing: 2.0
+    architecture: 2.0
+    maintainability: 1.5
+    dependencies: 1.0
+    documentation: 0.5
+    git_history: 0.5
+
+  # Risk level thresholds
+  risk_thresholds:
+    critical: 35
+    high: 55
+    medium: 75
+    low: 100
+
+  # Per-skill thresholds
+  complexity:
+    max_cyclomatic_complexity: 15
+    max_maintainability_index: 65
+    max_function_length: 50
+    max_class_methods: 20
+
+  security:
+    bandit_confidence_threshold: "MEDIUM"  # LOW, MEDIUM, HIGH
+    exclude_patterns:
+      - "test_*.py"
+      - "*_test.py"
+      - "tests/*"
+    custom_rules: []  # Additional bandit rule IDs to enable
+
+  testing:
+    min_coverage_percent: 80
+    min_assertions_per_test: 2
+    require_pytest_or_unittest: true
+
+  maintainability:
+    max_function_length: 50
+    max_class_methods: 20
+    max_nesting_depth: 4
+    max_parameters: 5
+
+  architecture:
+    max_internal_imports: 15
+    detect_circular: true
+    layering_rules:
+      - domain: ["domain", "models", "entities", "core"]
+      - application: ["application", "services", "use_cases"]
+      - infrastructure: ["infrastructure", "repositories", "adapters"]
+      - presentation: ["presentation", "api", "controllers", "views", "cli"]
+
+  dependencies:
+    check_outdated: true
+    check_vulnerabilities: true
+    check_licenses: true
+    allowed_licenses:
+      - "MIT"
+      - "Apache-2.0"
+      - "BSD-3-Clause"
+      - "BSD-2-Clause"
+      - "ISC"
+    blocked_licenses:
+      - "GPL-3.0"
+      - "AGPL-3.0"
+      - "LGPL-3.0"
+
+  documentation:
+    min_function_doc_coverage: 80
+    min_class_doc_coverage: 80
+    min_type_hint_coverage: 50
+    require_readme: true
+    readme_min_sections: 5
+
+  git_history:
+    min_authors: 2
+    max_fix_commit_ratio: 0.2
+    hotspot_threshold: 20
+
+execution:
+  # Parallel execution settings
+  parallel: true
+  max_workers: 4
+  timeout_per_skill: 120  # seconds
+  timeout_total: 300
+
+  # Caching
+  cache_enabled: true
+  cache_ttl_hours: 24
+  cache_dir: ".code_analysis_cache"
+
+  # File filtering
+  include_patterns:
+    - "*.py"
+    - "*.pyi"
+    - "pyproject.toml"
+    - "setup.py"
+    - "requirements*.txt"
+    - "Pipfile"
+    - "poetry.lock"
+    - "README*"
+    - "LICENSE*"
+  exclude_patterns:
+    - "__pycache__"
+    - ".git"
+    - ".venv"
+    - "venv"
+    - "env"
+    - "build"
+    - "dist"
+    - "*.egg-info"
+    - ".pytest_cache"
+    - ".mypy_cache"
+    - ".coverage"
+    - "htmlcov"
+
+output:
+  formats: ["json", "sarif", "html", "markdown"]
+  severity_levels: ["critical", "high", "medium", "low", "info"]
+  include_metrics: true
+  include_recommendations: true
+  group_by: "category"  # category, severity, file
+
+benchmark:
+  enabled: true
+  baseline_file: ".code_analysis_baseline.json"
+  regression_threshold: 5.0  # points
+  track_metrics:
+    - overall_score
+    - security_score
+    - complexity_score
+    - testing_score
+
+integrations:
+  github_actions: true
+  gitlab_ci: true
+  sarif_version: "2.1.0"
+  exit_on_critical: true
+  exit_on_high: false

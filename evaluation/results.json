@@ -1,0 +1,59 @@
+{
+  "test_cases": [
+    {
+      "test_case": "good_repo",
+      "baseline_score": 90.0,
+      "advanced_score": 84.9,
+      "baseline_risk": "low",
+      "advanced_risk": "high",
+      "baseline_findings": 0,
+      "advanced_findings": 7,
+      "improvement": -5.099999999999994
+    },
+    {
+      "test_case": "medium_repo",
+      "baseline_score": 90.0,
+      "advanced_score": 81.8,
+      "baseline_risk": "low",
+      "advanced_risk": "high",
+      "baseline_findings": 0,
+      "advanced_findings": 7,
+      "improvement": -8.200000000000003
+    },
+    {
+      "test_case": "bad_repo",
+      "baseline_score": 90.0,
+      "advanced_score": 62.8,
+      "baseline_risk": "low",
+      "advanced_risk": "high",
+      "baseline_findings": 0,
+      "advanced_findings": 12,
+      "improvement": -27.200000000000003
+    },
+    {
+      "test_case": "legacy_repo",
+      "baseline_score": 90.0,
+      "advanced_score": 72.5,
+      "baseline_risk": "low",
+      "advanced_risk": "high",
+      "baseline_findings": 0,
+      "advanced_findings": 8,
+      "improvement": -17.5
+    },
+    {
+      "test_case": "microservice_repo",
+      "baseline_score": 90.0,
+      "advanced_score": 82.0,
+      "baseline_risk": "low",
+      "advanced_risk": "high",
+      "baseline_findings": 0,
+      "advanced_findings": 6,
+      "improvement": -8.0
+    }
+  ],
+  "summary": {
+    "avg_baseline": 90.0,
+    "avg_advanced": 76.8,
+    "avg_improvement": -13.2
+  }
+}
