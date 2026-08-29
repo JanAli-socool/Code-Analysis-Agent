@@ -111,6 +111,8 @@ Thumbs.db
 !.github/workflows/*.yml
 !docker-compose.yml
 !Dockerfile
+!pro/cli/main.py
+!*.code_analysis_baseline.json
 *.md
 !README.md
 !CHANGELOG.md
