@@ -389,6 +389,10 @@ class SBOMGenerator:
 def create_sbom_cli():
     """CLI entry point for SBOM generation."""
     import click
+    import json
+    from rich.console import Console
+    
+    console = Console()
     
     @click.command()
     @click.argument('repo_path', type=click.Path(exists=True))
@@ -405,7 +409,7 @@ def create_sbom_cli():
             console.print(f"[green]SBOM saved to {output}[/green]")
         else:
             console.print_json(json.dumps(sbom_data, indent=2))
-    
+        
     return sbom
 
 
@@ -413,4 +417,4 @@ if __name__ == "__main__":
     import json
     from rich.console import Console
     console = Console()
-    create_sbom_cli()
+    create_sbom_cli()()

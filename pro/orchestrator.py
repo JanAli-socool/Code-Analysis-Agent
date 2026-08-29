@@ -366,8 +366,23 @@ class ProfessionalOrchestrator:
                         "properties": {"category": cs.category}
                     })
 
-                # Create result
+                # Create result - ensure line/column numbers are integers (not None)
                 file_path = finding.get("file_path", "")
+                line_start = finding.get("line_start")
+                line_end = finding.get("line_end")
+                col_start = finding.get("column_start")
+                col_end = finding.get("column_end")
+                
+                # Convert None to defaults, ensure integers
+                if line_start is None:
+                    line_start = 1
+                if line_end is None:
+                    line_end = 1
+                if col_start is None:
+                    col_start = 1
+                if col_end is None:
+                    col_end = 1
+                
                 sarif["runs"][0]["results"].append({
                     "ruleId": rule_map[rule_key],
                     "level": self._severity_to_sarif(finding.get("severity", "medium")),
@@ -376,10 +391,10 @@ class ProfessionalOrchestrator:
                         "physicalLocation": {
                             "artifactLocation": {"uri": file_path} if file_path else {"uri": "."},
                             "region": {
-                                "startLine": finding.get("line_start", 1),
-                                "endLine": finding.get("line_end", 1),
-                                "startColumn": finding.get("column_start", 1),
-                                "endColumn": finding.get("column_end", 1)
+                                "startLine": int(line_start),
+                                "endLine": int(line_end),
+                                "startColumn": int(col_start),
+                                "endColumn": int(col_end)
                             }
                         }
                     }],

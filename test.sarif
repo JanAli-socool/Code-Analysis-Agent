@@ -554,8 +554,8 @@
                   "uri": "."
                 },
                 "region": {
-                  "startLine": null,
-                  "endLine": null,
+                  "startLine": 1,
+                  "endLine": 1,
                   "startColumn": 1,
                   "endColumn": 1
                 }

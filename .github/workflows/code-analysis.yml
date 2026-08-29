@@ -54,7 +54,7 @@ jobs:
             --fail-on ${{ github.event.inputs.fail_on || 'critical' }}
       
       - name: Upload SARIF to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: results.sarif
@@ -168,12 +168,12 @@ jobs:
       - run: pip install -r pro/requirements.txt
       - name: Generate CycloneDX SBOM
         run: |
-          python -m pro.sbom . \
+          python -m pro.cli sbom . \
             --format cyclonedx-json \
             -o sbom.cyclonedx.json
       - name: Generate SPDX SBOM
         run: |
-          python -m pro.sbom . \
+          python -m pro.cli sbom . \
             --format spdx-json \
             -o sbom.spdx.json
       - name: Upload SBOMs
