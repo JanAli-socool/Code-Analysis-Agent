@@ -161,7 +161,7 @@ class CppSkill:
             {
                 "id": "double-free",
                 "name": "Potential Double Free",
-                "pattern": re.compile(r'free\s*\([^)]*\)\s*;[^}]*free\s*\(\s*\1\s*\)'),
+                "pattern": re.compile(r'free\s*\([^)]*\)\s*;[^}]*free\s*\([^)]*\)'),
                 "severity": "high",
                 "message": "Potential double free",
                 "recommendation": "Set pointer to NULL after free"

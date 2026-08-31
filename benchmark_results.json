@@ -1,52 +1,29 @@
 {
-  "timestamp": 1788181877.616918,
+  "timestamp": 1788207233.858831,
   "results": [
-    {
-      "repo_name": "bad_repo",
-      "repo_path": "test_repos/bad_repo",
-      "iterations": 2,
-      "times_ms": [
-        37.22130006644875,
-        33.41849998105317
-      ],
-      "avg_time_ms": 35.31990002375096,
-      "min_time_ms": 33.41849998105317,
-      "max_time_ms": 37.22130006644875,
-      "std_dev_ms": 2.688985727879993,
-      "cache_hits": 0,
-      "cache_misses": 2,
-      "cache_hit_rate": 0.0,
-      "scores": [
-        75.8,
-        75.8
-      ],
-      "avg_score": 75.8
-    },
     {
       "repo_name": "good_repo",
       "repo_path": "test_repos/good_repo",
-      "iterations": 2,
+      "iterations": 1,
       "times_ms": [
-        63.86490003205836,
-        33.412700053304434
+        41.348200058564544
       ],
-      "avg_time_ms": 48.638800042681396,
-      "min_time_ms": 33.412700053304434,
-      "max_time_ms": 63.86490003205836,
-      "std_dev_ms": 21.532957107025737,
+      "avg_time_ms": 41.348200058564544,
+      "min_time_ms": 41.348200058564544,
+      "max_time_ms": 41.348200058564544,
+      "std_dev_ms": 0.0,
       "cache_hits": 0,
-      "cache_misses": 2,
+      "cache_misses": 1,
       "cache_hit_rate": 0.0,
       "scores": [
-        86.8,
         86.8
       ],
       "avg_score": 86.8
     }
   ],
   "summary": {
-    "total_repos": 2,
-    "total_iterations": 4,
-    "avg_time_overall": 41.97935003321618
+    "total_repos": 1,
+    "total_iterations": 1,
+    "avg_time_overall": 41.348200058564544
   }
 }

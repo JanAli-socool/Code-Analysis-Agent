@@ -280,30 +280,103 @@ class SBOMGenerator:
                     pass
         return deps
     
-    def generate_cyclonedx_json(self, components: List[Dict]) -> Dict:
-        """Generate CycloneDX JSON format SBOM."""
-        bom_ref = str(uuid.uuid4())
+    def _detect_license(self, component: Dict) -> List[Dict[str, str]]:
+        """Detect license for a component using multiple sources."""
+        licenses = []
+        name = component.get('name', '')
+        ptype = component.get('type', '')
         
+        try:
+            if ptype in ('pypi', 'npm'):
+                # Try to get license from package manager
+                if ptype == 'pypi':
+                    result = subprocess.run(
+                        ['python', '-m', 'pip', 'show', component['name']],
+                        capture_output=True, text=True, timeout=10
+                    )
+                else:
+                    result = subprocess.run(
+                        ['npm', 'view', component['name'], 'license'],
+                        capture_output=True, text=True, timeout=10
+                    )
+                
+                for line in result.stdout.split('\n'):
+                    if line.startswith('License:'):
+                        license_str = line.split(':', 1)[1].strip()
+                        licenses.append({
+                            "license": {
+                                "id": self._normalize_spdx_license(license_str),
+                                "name": license_str
+                            }
+                        })
+                        break
+        except Exception:
+            pass
+        
+        # If no license found, use NOASSERTION
+        if not licenses:
+            licenses.append({
+                "license": {
+                    "id": "NOASSERTION",
+                    "name": "No license information available"
+                }
+            })
+        
+        return licenses
+    
+    def _normalize_spdx_license(self, license_str: str) -> str:
+        """Normalize license string to SPDX identifier."""
+        license_mapping = {
+            'mit': 'MIT',
+            'apache 2.0': 'Apache-2.0',
+            'apache-2.0': 'Apache-2.0',
+            'apache license 2.0': 'Apache-2.0',
+            'bsd 3-clause': 'BSD-3-Clause',
+            'bsd 2-clause': 'BSD-2-Clause',
+            'bsd-3-clause': 'BSD-3-Clause',
+            'bsd-2-clause': 'BSD-2-Clause',
+            'gpl 3.0': 'GPL-3.0-only',
+            'gpl-3.0': 'GPL-3.0-only',
+            'gpl 2.0': 'GPL-2.0-only',
+            'gpl-2.0': 'GPL-2.0-only',
+            'lgpl 3.0': 'LGPL-3.0-only',
+            'lgpl-3.0': 'LGPL-3.0-only',
+            'lgpl 2.1': 'LGPL-2.1-only',
+            'lgpl-2.1': 'LGPL-2.1-only',
+            'agpl 3.0': 'AGPL-3.0-only',
+            'agpl-3.0': 'AGPL-3.0-only',
+            'mpl 2.0': 'MPL-2.0',
+            'mpl-2.0': 'MPL-2.0',
+            'apache': 'Apache-2.0',
+            'bsd': 'BSD-3-Clause',
+            'gpl': 'GPL-3.0-only',
+            'lgpl': 'LGPL-3.0-only',
+            'mpl': 'MPL-2.0',
+            'isc': 'ISC',
+            'unlicense': 'Unlicense',
+            'public domain': 'Unlicense',
+        }
+        
+        license_lower = license_str.lower().strip()
+        return license_mapping.get(license_lower, license_str.upper())
+    
+    def generate_cyclonedx_json(self, components: List[Dict]) -> Dict:
+        """Generate CycloneDX JSON format SBOM with license compliance."""
         components_list = []
         for comp in components:
-            licenses = []
-            # Could add license detection here
-            
-            hashes = []
-            # Could add hash computation here
-            
-            components_list.append({
+            licenses = self._detect_license(comp)
+            component = {
                 "type": "library",
-                "bom-ref": comp.get('purl', f"pkg:{comp['type']}/{comp['name']}@{comp['version']}"),
                 "name": comp['name'],
                 "version": comp['version'],
-                "description": comp.get('description', ''),
-                "scope": comp.get('scope', 'required'),
-                "hashes": hashes,
+                "purl": comp.get('purl', ''),
                 "licenses": licenses,
-                "purl": comp.get('purl'),
-                "externalReferences": comp.get('external_refs', [])
-            })
+                "externalReferences": [{
+                    "type": "distribution",
+                    "url": f"https://pypi.org/project/{comp['name']}/" if comp.get('type') == 'pypi' else f"https://www.npmjs.com/package/{comp['name']}"
+                }] if comp.get('type') in ('pypi', 'npm') else []
+            }
+            components_list.append(component)
         
         return {
             "bomFormat": "CycloneDX",

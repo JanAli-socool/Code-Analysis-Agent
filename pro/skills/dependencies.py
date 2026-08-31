@@ -6,9 +6,13 @@ import subprocess
 import re
 import os
 import tempfile
+import hashlib
+import time
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 from pathlib import Path
+from urllib import request, parse
+import urllib.error
 
 from pro.config.loader import get_config
 from pro.cache.manager import AnalysisCache
@@ -101,6 +105,24 @@ class DependenciesSkill:
                     metric_value=1,
                     threshold=0,
                     recommendation="Review license compatibility with your use case"
+                ))
+
+        if config.get('check_supply_chain', True):
+            supply_chain_issues = self._check_supply_chain(deps)
+            metrics["supply_chain_issues_count"] = len(supply_chain_issues)
+            for issue in supply_chain_issues:
+                findings.append(DependencyFinding(
+                    id=f"supply_chain_{issue['package']}_{issue['id']}",
+                    category="supply_chain",
+                    severity=issue['severity'].lower(),
+                    title=f"Supply chain issue in {issue['package']}: {issue['id']}",
+                    description=issue['description'],
+                    file_path=issue.get('source_file'),
+                    line_start=None,
+                    line_end=None,
+                    metric_value=1,
+                    threshold=0,
+                    recommendation=issue.get('recommendation', 'Review and mitigate supply chain risk')
                 ))
 
         pinned = self._check_pinned_versions(deps)
@@ -330,12 +352,223 @@ class DependenciesSkill:
             })
         return sbom
 
+    # ==================== Supply Chain Scanning ====================
+
+    def _check_supply_chain(self, deps: List[Dict]) -> List[Dict]:
+        """Check for dependency confusion and supply chain issues using multiple sources."""
+        findings = []
+        
+        # Check each dependency against multiple sources
+        for dep in deps:
+            name = dep['name']
+            
+            # Check OSV (Open Source Vulnerabilities)
+            osv_results = self._check_osv(name, dep.get('current', 'unknown'))
+            for vuln in osv_results:
+                vuln['package'] = name
+                vuln['source'] = 'OSV'
+            
+            # Check OSS Index
+            oss_results = self._check_oss_index(name)
+            for vuln in oss_results:
+                vuln['package'] = name
+                vuln['source'] = 'OSS Index'
+            
+            # Check deps.dev
+            deps_dev_results = self._check_deps_dev(name)
+            for issue in deps_dev_results:
+                issue['package'] = name
+                issue['source'] = 'deps.dev'
+            
+            # Check for dependency confusion (typosquatting, etc.)
+            confusion_results = self._check_dependency_confusion(name, deps)
+            for issue in confusion_results:
+                issue['package'] = name
+                issue['source'] = 'Dependency Confusion Check'
+            
+            # Collect all findings
+            all_findings = osv_results + oss_results + deps_dev_results + confusion_results
+            for finding in all_findings:
+                findings.append({
+                    'package': name,
+                    'id': finding.get('id', ''),
+                    'severity': finding.get('severity', 'MEDIUM'),
+                    'description': finding.get('description', ''),
+                    'source': finding.get('source', ''),
+                    'fixed_version': finding.get('fixed_version', ''),
+                    'recommendation': finding.get('recommendation', '')
+                })
+        
+        return findings
+
+    def _check_osv(self, package: str, version: str) -> List[Dict]:
+        """Check OSV (Open Source Vulnerabilities) database."""
+        findings = []
+        try:
+            # OSV API endpoint
+            url = f"https://api.osv.dev/v1/query"
+            payload = {
+                "package": {"name": package, "ecosystem": "PyPI"},
+                "version": version
+            }
+            
+            data = json.dumps(payload).encode('utf-8')
+            req = request.Request(
+                "https://api.osv.dev/v1/query",
+                data=data,
+                headers={'Content-Type': 'application/json'},
+                method='POST'
+            )
+            
+            with request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode('utf-8'))
+                
+                for vuln in data.get('vulns', []):
+                    findings.append({
+                        'id': vuln.get('id', ''),
+                        'severity': self._map_osv_severity(vuln),
+                        'description': vuln.get('details', vuln.get('summary', '')),
+                        'fixed_version': self._extract_fixed_version(vuln),
+                        'recommendation': f"Update to a non-vulnerable version. See {vuln.get('id', '')} for details."
+                    })
+        except Exception:
+            pass  # Silently ignore network errors
+        return findings
+
+    def _check_oss_index(self, package: str) -> List[Dict]:
+        """Check OSS Index (Sonatype) for vulnerabilities."""
+        findings = []
+        try:
+            # OSS Index API
+            url = "https://ossindex.sonatype.org/api/v3/component-report"
+            payload = [{"coordinates": f"pkg:pypi/{package}"}]
+            
+            data = json.dumps(payload).encode('utf-8')
+            req = request.Request(
+                url,
+                data=data,
+                headers={'Content-Type': 'application/json'},
+                method='POST'
+            )
+            
+            with request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode('utf-8'))
+                
+                for item in data:
+                    for vuln in item.get('vulnerabilities', []):
+                        findings.append({
+                            'id': vuln.get('id', ''),
+                            'severity': vuln.get('cvssScore', '').upper() if vuln.get('cvssScore') else 'MEDIUM',
+                            'description': vuln.get('title', ''),
+                            'fixed_version': '',
+                            'recommendation': f"See {vuln.get('id', '')} for details. Consider upgrading."
+                        })
+        except Exception:
+            pass
+        return findings
+
+    def _check_deps_dev(self, package: str) -> List[Dict]:
+        """Check deps.dev for package information and issues."""
+        findings = []
+        try:
+            url = f"https://api.deps.dev/v3alpha/systems/pypi/packages/{package}"
+            req = request.Request(url)
+            
+            with request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode('utf-8'))
+                
+                # Check for known vulnerabilities
+                for vuln in data.get('vulnerabilities', []):
+                    findings.append({
+                        'id': vuln.get('id', ''),
+                        'severity': vuln.get('severity', 'MEDIUM'),
+                        'description': vuln.get('description', ''),
+                        'fixed_version': vuln.get('fixedVersion', ''),
+                        'recommendation': f"Update to version {vuln.get('fixedVersion', 'latest')} or later."
+                    })
+                
+                # Check for dependency confusion indicators
+                if data.get('isMalicious', False):
+                    findings.append({
+                        'id': 'MALICIOUS_PACKAGE',
+                        'severity': 'CRITICAL',
+                        'description': f'Package {package} flagged as potentially malicious on deps.dev',
+                        'fixed_version': '',
+                        'recommendation': 'Immediately remove this package and investigate.'
+                    })
+        except Exception:
+            pass
+        return findings
+
+    def _check_dependency_confusion(self, package: str, all_deps: List[Dict]) -> List[Dict]:
+        """Check for potential dependency confusion attacks (typosquatting, etc.)."""
+        findings = []
+        
+        # Common typosquatting patterns
+        typo_patterns = [
+            package.replace('-', '_'),
+            package.replace('_', '-'),
+            package + 's',
+            package[:-1] if len(package) > 3 else package,
+            package + '2',
+            package + '-utils',
+            package + '-tools',
+            package + '-lib',
+            package + '-client',
+        ]
+        
+        # Check if any typosquatting variants exist in dependencies
+        dep_names = {d['name'].lower() for d in all_deps}
+        for typo in typo_patterns:
+            if typo.lower() in dep_names and typo.lower() != package.lower():
+                findings.append({
+                    'id': 'TYPOSQUATTING_DETECTED',
+                    'severity': 'HIGH',
+                    'description': f'Potential typosquatting detected: {typo} resembles {package}',
+                    'fixed_version': '',
+                    'recommendation': f'Review dependency {typo} - it may be a typosquatting attempt targeting {package}.'
+                })
+        
+        # Check for similar package names on PyPI (simplified check)
+        # In production, this would query PyPI API
+        return findings
+
+    def _map_osv_severity(self, vuln: Dict) -> str:
+        """Map OSV severity to our severity levels."""
+        for severity in vuln.get('severity', []):
+            if severity.get('type') == 'CVSS_V3':
+                score = severity.get('score', '0')
+                try:
+                    score_val = float(score.split(':')[-1]) if ':' in score else float(score)
+                    if score_val >= 9.0:
+                        return 'CRITICAL'
+                    elif score_val >= 7.0:
+                        return 'HIGH'
+                    elif score_val >= 4.0:
+                        return 'MEDIUM'
+                    else:
+                        return 'LOW'
+                except:
+                    pass
+        return 'MEDIUM'
+
+    def _extract_fixed_version(self, vuln: Dict) -> str:
+        """Extract fixed version from OSV vulnerability data."""
+        for affected in vuln.get('affected', []):
+            for range_info in affected.get('ranges', []):
+                for event in range_info.get('events', []):
+                    if 'fixed' in event:
+                        return event['fixed']
+        return ''
+
     def _calculate_score(self, findings: List[DependencyFinding], metrics: Dict) -> float:
+        """Calculate overall score based on findings and metrics."""
         score = 100.0
 
         score -= metrics.get("vulnerabilities_count", 0) * 20
         score -= metrics.get("outdated_count", 0) * 2
         score -= metrics.get("license_issues_count", 0) * 5
+        score -= metrics.get("supply_chain_issues_count", 0) * 10
 
         total = metrics.get("total_dependencies", 1)
         pinned = metrics.get("pinned_dependencies", 0)
