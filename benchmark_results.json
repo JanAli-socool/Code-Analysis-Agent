@@ -1,52 +1,52 @@
 {
-  "timestamp": 1788015777.3011127,
+  "timestamp": 1788181877.616918,
   "results": [
     {
       "repo_name": "bad_repo",
       "repo_path": "test_repos/bad_repo",
       "iterations": 2,
       "times_ms": [
-        40.40789999999106,
-        61.16219999967143
+        37.22130006644875,
+        33.41849998105317
       ],
-      "avg_time_ms": 50.785049999831244,
-      "min_time_ms": 40.40789999999106,
-      "max_time_ms": 61.16219999967143,
-      "std_dev_ms": 14.675506268553951,
+      "avg_time_ms": 35.31990002375096,
+      "min_time_ms": 33.41849998105317,
+      "max_time_ms": 37.22130006644875,
+      "std_dev_ms": 2.688985727879993,
       "cache_hits": 0,
       "cache_misses": 2,
       "cache_hit_rate": 0.0,
       "scores": [
-        61.2,
-        61.2
+        75.8,
+        75.8
       ],
-      "avg_score": 61.2
+      "avg_score": 75.8
     },
     {
       "repo_name": "good_repo",
       "repo_path": "test_repos/good_repo",
       "iterations": 2,
       "times_ms": [
-        45.41560000507161,
-        22.372600040398538
+        63.86490003205836,
+        33.412700053304434
       ],
-      "avg_time_ms": 33.894100022735074,
-      "min_time_ms": 22.372600040398538,
-      "max_time_ms": 45.41560000507161,
-      "std_dev_ms": 16.293861533901705,
+      "avg_time_ms": 48.638800042681396,
+      "min_time_ms": 33.412700053304434,
+      "max_time_ms": 63.86490003205836,
+      "std_dev_ms": 21.532957107025737,
       "cache_hits": 0,
       "cache_misses": 2,
       "cache_hit_rate": 0.0,
       "scores": [
-        80.2,
-        80.2
+        86.8,
+        86.8
       ],
-      "avg_score": 80.2
+      "avg_score": 86.8
     }
   ],
   "summary": {
     "total_repos": 2,
     "total_iterations": 4,
-    "avg_time_overall": 42.33957501128316
+    "avg_time_overall": 41.97935003321618
   }
 }

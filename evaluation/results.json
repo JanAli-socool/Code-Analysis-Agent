@@ -3,12 +3,12 @@
     {
       "test_case": "good_repo",
       "baseline_score": 90.0,
-      "advanced_score": 84.9,
+      "advanced_score": 84.8,
       "baseline_risk": "low",
       "advanced_risk": "high",
       "baseline_findings": 0,
       "advanced_findings": 7,
-      "improvement": -5.099999999999994
+      "improvement": -5.200000000000003
     },
     {
       "test_case": "medium_repo",
@@ -53,7 +53,7 @@
   ],
   "summary": {
     "avg_baseline": 90.0,
-    "avg_advanced": 76.8,
-    "avg_improvement": -13.2
+    "avg_advanced": 76.78,
+    "avg_improvement": -13.220000000000002
   }
 }

@@ -21,6 +21,11 @@ class AnalysisConfig:
     dependencies: Dict[str, Any]
     documentation: Dict[str, Any]
     git_history: Dict[str, Any]
+    # Language-specific configurations
+    javascript: Dict[str, Any]
+    java: Dict[str, Any]
+    go: Dict[str, Any]
+    cpp: Dict[str, Any]
 
 
 @dataclass

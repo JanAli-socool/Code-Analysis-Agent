@@ -23,6 +23,11 @@ from pro.skills.dependencies import DependenciesSkill
 from pro.skills.maintainability import MaintainabilitySkill
 from pro.skills.documentation import DocumentationSkill
 from pro.skills.git_history import GitHistorySkill
+from pro.languages.detector import get_detector, Language
+from pro.languages.javascript import JavaScriptSkill
+from pro.languages.java import JavaSkill
+from pro.languages.go import GoSkill
+from pro.languages.cpp import CppSkill
 
 
 @dataclass
@@ -76,7 +81,15 @@ class ProfessionalOrchestrator:
             ("dependencies", DependenciesSkill(self.cache), weights.get("dependencies", 1.0)),
             ("documentation", DocumentationSkill(self.cache), weights.get("documentation", 0.5)),
             ("git_history", GitHistorySkill(self.cache), weights.get("git_history", 0.5)),
+            # Language-specific skills
+            ("javascript", JavaScriptSkill(self.cache), weights.get("javascript", 1.5)),
+            ("java", JavaSkill(self.cache), weights.get("java", 1.5)),
+            ("go", GoSkill(self.cache), weights.get("go", 1.5)),
+            ("cpp", CppSkill(self.cache), weights.get("cpp", 1.5)),
         ]
+
+        # Language detector
+        self.language_detector = get_detector()
 
         self.file_contents: Dict[str, str] = {}
         self._config_hash = self._compute_config_hash()

@@ -12,6 +12,11 @@ analysis:
     dependencies: 1.0
     documentation: 0.5
     git_history: 0.5
+    # Language-specific skills
+    javascript: 1.5
+    java: 1.5
+    go: 1.5
+    cpp: 1.5
 
   # Risk level thresholds
   risk_thresholds:
@@ -82,6 +87,37 @@ analysis:
     max_fix_commit_ratio: 0.2
     hotspot_threshold: 20
 
+  # Language-specific configurations
+  javascript:
+    eslint_enabled: true
+    eslint_config: ".eslintrc.json"
+    typescript_enabled: true
+    check_package_json: true
+    max_any_usage: 5
+    max_ts_ignore: 3
+
+  java:
+    spotbugs_enabled: true
+    checkstyle_enabled: true
+    checkstyle_config: "google_checks.xml"
+    maven_enabled: true
+    gradle_enabled: true
+    max_cyclomatic_complexity: 15
+
+  go:
+    govet_enabled: true
+    staticcheck_enabled: true
+    golint_enabled: true
+    go_mod_tidy_check: true
+    max_cyclomatic_complexity: 15
+
+  cpp:
+    cppcheck_enabled: true
+    clang_tidy_enabled: true
+    cmake_enabled: true
+    makefile_enabled: true
+    max_cyclomatic_complexity: 15
+
 execution:
   # Parallel execution settings
   parallel: true
@@ -98,11 +134,34 @@ execution:
   include_patterns:
     - "*.py"
     - "*.pyi"
+    - "*.js"
+    - "*.jsx"
+    - "*.ts"
+    - "*.tsx"
+    - "*.mjs"
+    - "*.cjs"
+    - "*.java"
+    - "*.go"
+    - "*.cpp"
+    - "*.cc"
+    - "*.cxx"
+    - "*.c"
+    - "*.h"
+    - "*.hpp"
+    - "*.hxx"
     - "pyproject.toml"
     - "setup.py"
     - "requirements*.txt"
     - "Pipfile"
     - "poetry.lock"
+    - "package.json"
+    - "package-lock.json"
+    - "yarn.lock"
+    - "pnpm-lock.yaml"
+    - "go.mod"
+    - "go.sum"
+    - "CMakeLists.txt"
+    - "Makefile"
     - "README*"
     - "LICENSE*"
   exclude_patterns:
@@ -118,6 +177,11 @@ execution:
     - ".mypy_cache"
     - ".coverage"
     - "htmlcov"
+    - "node_modules"
+    - "target"
+    - "build"
+    - ".idea"
+    - ".vscode"
 
 output:
   formats: ["json", "sarif", "html", "markdown"]
