@@ -7,7 +7,7 @@ FROM python:3.12-slim as builder
 WORKDIR /app
 
 # Cache bust - change this to force rebuild
-ARG CACHE_BUST=20240901
+ARG CACHE_BUST=20240901-2
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies system-wide
+# Install Python dependencies system-wide (CACHE_BUST forces rebuild)
 COPY pro/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN echo "CACHE_BUST=${CACHE_BUST}" && pip install --no-cache-dir -r requirements.txt
 
 # Install additional tools for analysis
 RUN pip install --no-cache-dir \
