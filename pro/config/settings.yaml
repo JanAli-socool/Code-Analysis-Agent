@@ -61,9 +61,10 @@ analysis:
       - presentation: ["presentation", "api", "controllers", "views", "cli"]
 
   dependencies:
-    check_outdated: true
+    check_outdated: false
     check_vulnerabilities: true
     check_licenses: true
+    check_supply_chain: false
     allowed_licenses:
       - "MIT"
       - "Apache-2.0"

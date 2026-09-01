@@ -241,6 +241,35 @@ class ProfessionalOrchestrator:
         else:
             return self._run_skills_sequential()
 
+    def _run_single_skill(self, name: str, skill: Any, weight: float) -> SkillResult:
+        """Run a single skill synchronously."""
+        start = time.time()
+        try:
+            skill_result = skill.analyze(str(self.repo_path), self.file_contents)
+            duration = (time.time() - start) * 1000
+            
+            return SkillResult(
+                name=name,
+                category=name,
+                score=skill_result.get("score", 0.0),
+                weight=weight,
+                findings=skill_result.get("findings", []),
+                metrics=skill_result.get("metrics", []),
+                duration_ms=round(duration, 1)
+            )
+        except Exception as e:
+            self.logger.error(f"Skill {name} failed: {e}")
+            return SkillResult(
+                name=name,
+                category=name,
+                score=0.0,
+                weight=weight,
+                findings=[],
+                metrics=[],
+                duration_ms=0,
+                error=str(e)
+            )
+
     def _run_skills_sequential(self) -> List[SkillResult]:
         """Execute all skills sequentially (fallback)."""
         results = []

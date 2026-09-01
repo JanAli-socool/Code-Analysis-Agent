@@ -195,14 +195,14 @@ class SecuritySkill:
             for rel_path, content in py_files.items():
                 full_path = os.path.join(tmpdir, rel_path)
                 os.makedirs(os.path.dirname(full_path), exist_ok=True)
-                with open(full_path, 'w') as f:
+                with open(full_path, 'w', encoding='utf-8') as f:
                     f.write(content)
 
             try:
                 cmd = ['python', '-m', 'bandit', '-r', tmpdir, '-f', 'json', 
                        '-ll', '--confidence-level', self.config.get('bandit_confidence_threshold', 'MEDIUM')]
                 
-                result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+                result = subprocess.run(cmd, capture_output=True, timeout=120, encoding='utf-8', errors='replace')
                 if result.returncode in (0, 1):  # 0 = no issues, 1 = issues found
                     data = json.loads(result.stdout) if result.stdout else {"results": []}
                     for item in data.get("results", []):

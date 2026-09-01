@@ -13,9 +13,70 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib import request, parse
 import urllib.error
+from functools import lru_cache
 
 from pro.config.loader import get_config
 from pro.cache.manager import AnalysisCache
+
+
+# Module-level cache for pip outdated results
+_pip_outdated_cache = {}
+_pip_outdated_cache_time = 0
+PIP_OUTDATED_CACHE_TTL = 3600  # 1 hour
+
+@lru_cache(maxsize=1)
+def _get_pip_outdated_cached() -> List[Dict]:
+    """Get pip outdated packages with caching."""
+    global _pip_outdated_cache, _pip_outdated_cache_time
+    
+    current_time = time.time()
+    if current_time - _pip_outdated_cache_time < PIP_OUTDATED_CACHE_TTL and _pip_outdated_cache:
+        return _pip_outdated_cache
+    
+    try:
+        result = subprocess.run(
+            ['python', '-m', 'pip', 'list', '--outdated', '--format=json'],
+            capture_output=True, text=True, timeout=60
+        )
+        if result.returncode == 0:
+            _pip_outdated_cache = json.loads(result.stdout)
+            _pip_outdated_cache_time = current_time
+            return _pip_outdated_cache
+    except Exception:
+        pass
+    
+    return []
+
+def _clear_pip_outdated_cache():
+    """Clear the pip outdated cache (for testing)."""
+    global _pip_outdated_cache, _pip_outdated_cache_time
+    _pip_outdated_cache = {}
+    _pip_outdated_cache_time = 0
+
+
+def _check_outdated(deps: List[Dict], repo_path: str) -> List[Dict]:
+    outdated = []
+    if not deps:
+        return outdated
+
+    pip_outdated = _get_pip_outdated_cached()
+    if not pip_outdated:
+        return outdated
+
+    dep_names = {d['name'] for d in deps}
+    
+    for pkg in pip_outdated:
+        if pkg['name'].lower() in dep_names:
+            current_major = pkg['version'].split('.')[0]
+            latest_major = pkg['latest_version'].split('.')[0]
+            outdated.append({
+                'name': pkg['name'],
+                'current': pkg['version'],
+                'latest': pkg['latest_version'],
+                'major_behind': int(latest_major) > int(current_major)
+            })
+    
+    return outdated
 
 
 @dataclass
@@ -54,7 +115,7 @@ class DependenciesSkill:
         metrics["total_dependencies"] = len(deps)
 
         if config.get('check_outdated', True):
-            outdated = self._check_outdated(deps, repo_path)
+            outdated = _check_outdated(deps, repo_path)
             metrics["outdated_count"] = len(outdated)
             for dep in outdated:
                 findings.append(DependencyFinding(
@@ -185,24 +246,99 @@ class DependenciesSkill:
 
     def _parse_pyproject(self, content: str) -> List[Dict]:
         deps = []
-        in_deps = False
-        for line in content.split('\n'):
-            line = line.strip()
-            if line.startswith('[') and 'dependencies' in line.lower():
-                in_deps = True
-                continue
-            elif line.startswith('['):
-                in_deps = False
-                continue
+        try:
+            import tomllib
+            data = tomllib.loads(content)
             
-            if in_deps and line and not line.startswith('#'):
-                match = re.match(r'^([a-zA-Z0-9_\-\.]+)\s*[=<>!~]', line)
-                if match:
+            if 'project' in data:
+                for dep in data['project'].get('dependencies', []):
+                    deps.append(self._parse_req_line(dep))
+                for extra_name, extra_deps in data['project'].get('optional-dependencies', {}).items():
+                    for dep in extra_deps:
+                        d = self._parse_req_line(dep)
+                        d['extras'] = [extra_name]
+                        deps.append(d)
+            
+            if 'tool' in data and 'poetry' in data['tool']:
+                poetry = data['tool']['poetry']
+                for name, spec in poetry.get('dependencies', {}).items():
+                    if name != 'python':
+                        deps.append(self._parse_poetry_dep(name, spec))
+                for group_name, group_deps in poetry.get('group', {}).items():
+                    for name, spec in group_deps.get('dependencies', {}).items():
+                        d = self._parse_poetry_dep(name, spec)
+                        d['extras'] = [group_name]
+                        deps.append(d)
+        except Exception:
+            pass
+        return deps
+
+    def _parse_req_line(self, line: str) -> Dict[str, Any]:
+        import re
+        match = re.match(r'^([a-zA-Z0-9_\-\.]+)([=<>!~]+.*)?', line.strip())
+        if match:
+            name = match.group(1).lower()
+            version = match.group(2).lstrip('=<>!~') if match.group(2) else 'unknown'
+        else:
+            name = line.strip().lower()
+            version = 'unknown'
+        return {
+            'name': name,
+            'version': version,
+            'type': 'pypi',
+            'purl': f"pkg:pypi/{name}@{version}"
+        }
+
+    def _parse_poetry_dep(self, name: str, spec: Any) -> Dict[str, Any]:
+        if isinstance(spec, str):
+            version = spec
+        elif isinstance(spec, dict):
+            version = spec.get('version', 'unknown')
+        else:
+            version = 'unknown'
+        return {
+            'name': name.lower(),
+            'version': version.lstrip('^~>=<'),
+            'type': 'pypi',
+            'purl': f"pkg:pypi/{name.lower()}@{version.lstrip('^~>=<')}"
+        }
+
+    def _parse_poetry_lock(self, content: str) -> List[Dict]:
+        deps = []
+        try:
+            data = json.loads(content)
+            for pkg in data.get('package', []):
+                deps.append({
+                    'name': pkg['name'].lower(),
+                    'version': pkg['version'],
+                    'type': 'pypi',
+                    'purl': f"pkg:pypi/{pkg['name'].lower()}@{pkg['version']}"
+                })
+        except Exception:
+            pass
+        return deps
+
+    def _parse_pipfile(self, content: str) -> List[Dict]:
+        deps = []
+        try:
+            import tomllib
+            data = tomllib.loads(content)
+            for section in ['packages', 'dev-packages']:
+                for name, spec in data.get(section, {}).items():
+                    if isinstance(spec, str):
+                        version = spec
+                    elif isinstance(spec, dict):
+                        version = spec.get('version', 'unknown')
+                    else:
+                        version = 'unknown'
                     deps.append({
-                        'name': match.group(1).lower(),
-                        'specifier': line[match.end():].strip(),
-                        'current': 'from_pyproject'
+                        'name': name.lower(),
+                        'version': version.lstrip('^~>=<') if isinstance(spec, str) else 'unknown',
+                        'type': 'pypi',
+                        'purl': f"pkg:pypi/{name.lower()}@{version.lstrip('^~>=<') if isinstance(spec, str) else 'unknown'}"
                     })
+        except Exception:
+            pass
         return deps
 
     def _parse_setup_py(self, content: str) -> List[Dict]:
@@ -221,50 +357,6 @@ class DependenciesSkill:
                             'current': m.group(2).lstrip('=<>!~') if m.group(2) else 'unknown'
                         })
         return deps
-
-    def _parse_poetry_lock(self, content: str) -> List[Dict]:
-        deps = []
-        try:
-            data = json.loads(content) if content.startswith('{') else None
-            if data and 'package' in data:
-                for pkg in data['package']:
-                    deps.append({
-                        'name': pkg.get('name', '').lower(),
-                        'version': pkg.get('version', ''),
-                        'current': pkg.get('version', 'unknown')
-                    })
-        except Exception:
-            pass
-        return deps
-
-    def _check_outdated(self, deps: List[Dict], repo_path: str) -> List[Dict]:
-        outdated = []
-        if not deps:
-            return outdated
-
-        try:
-            result = subprocess.run(
-                ['python', '-m', 'pip', 'list', '--outdated', '--format=json'],
-                capture_output=True, text=True, timeout=60
-            )
-            if result.returncode == 0:
-                pip_outdated = json.loads(result.stdout)
-                dep_names = {d['name'] for d in deps}
-                
-                for pkg in pip_outdated:
-                    if pkg['name'].lower() in dep_names:
-                        current_major = pkg['version'].split('.')[0]
-                        latest_major = pkg['latest_version'].split('.')[0]
-                        outdated.append({
-                            'name': pkg['name'],
-                            'current': pkg['version'],
-                            'latest': pkg['latest_version'],
-                            'major_behind': int(latest_major) > int(current_major)
-                        })
-        except Exception:
-            pass
-
-        return outdated
 
     def _check_vulnerabilities(self, deps: List[Dict]) -> List[Dict]:
         vulns = []
@@ -405,7 +497,6 @@ class DependenciesSkill:
         """Check OSV (Open Source Vulnerabilities) database."""
         findings = []
         try:
-            # OSV API endpoint
             url = f"https://api.osv.dev/v1/query"
             payload = {
                 "package": {"name": package, "ecosystem": "PyPI"},
@@ -432,14 +523,13 @@ class DependenciesSkill:
                         'recommendation': f"Update to a non-vulnerable version. See {vuln.get('id', '')} for details."
                     })
         except Exception:
-            pass  # Silently ignore network errors
+            pass
         return findings
 
     def _check_oss_index(self, package: str) -> List[Dict]:
         """Check OSS Index (Sonatype) for vulnerabilities."""
         findings = []
         try:
-            # OSS Index API
             url = "https://ossindex.sonatype.org/api/v3/component-report"
             payload = [{"coordinates": f"pkg:pypi/{package}"}]
             
@@ -477,7 +567,6 @@ class DependenciesSkill:
             with request.urlopen(req, timeout=10) as response:
                 data = json.loads(response.read().decode('utf-8'))
                 
-                # Check for known vulnerabilities
                 for vuln in data.get('vulnerabilities', []):
                     findings.append({
                         'id': vuln.get('id', ''),
@@ -487,7 +576,6 @@ class DependenciesSkill:
                         'recommendation': f"Update to version {vuln.get('fixedVersion', 'latest')} or later."
                     })
                 
-                # Check for dependency confusion indicators
                 if data.get('isMalicious', False):
                     findings.append({
                         'id': 'MALICIOUS_PACKAGE',
@@ -504,7 +592,6 @@ class DependenciesSkill:
         """Check for potential dependency confusion attacks (typosquatting, etc.)."""
         findings = []
         
-        # Common typosquatting patterns
         typo_patterns = [
             package.replace('-', '_'),
             package.replace('_', '-'),
@@ -517,7 +604,6 @@ class DependenciesSkill:
             package + '-client',
         ]
         
-        # Check if any typosquatting variants exist in dependencies
         dep_names = {d['name'].lower() for d in all_deps}
         for typo in typo_patterns:
             if typo.lower() in dep_names and typo.lower() != package.lower():
@@ -529,8 +615,6 @@ class DependenciesSkill:
                     'recommendation': f'Review dependency {typo} - it may be a typosquatting attempt targeting {package}.'
                 })
         
-        # Check for similar package names on PyPI (simplified check)
-        # In production, this would query PyPI API
         return findings
 
     def _map_osv_severity(self, vuln: Dict) -> str:
