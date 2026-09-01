@@ -14,6 +14,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks, Depends, Query
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
+from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel, HttpUrl
 import httpx
 
@@ -96,8 +98,169 @@ app = FastAPI(
     title="Code Analysis Agent API",
     description="Professional code quality analysis REST API",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
+    openapi_tags=[
+        {"name": "Analysis", "description": "Core code analysis operations. Submit repositories for analysis, retrieve results, and manage analysis jobs."},
+        {"name": "Benchmarking", "description": "Performance benchmarking and regression detection for tracking code quality over time."},
+        {"name": "Regression", "description": "Regression detection comparing current analysis against baselines."},
+        {"name": "Webhooks", "description": "Webhook management for real-time notifications on analysis completion."},
+        {"name": "Cache", "description": "Cache management for analysis results and performance optimization."},
+        {"name": "Configuration", "description": "Application configuration management."},
+    ]
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Custom OpenAPI schema with enhanced documentation
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    
+    openapi_schema = get_openapi(
+        title="Code Analysis Agent API",
+        version="1.0.0",
+        description="""
+# Code Analysis Agent API
+
+Professional multi-skill code analysis for technical due diligence.
+
+## Features
+
+- **Multi-language Analysis**: Python, JavaScript/TypeScript, Java, Go, C/C++
+- **12 Analysis Skills**: Security, Complexity, Testing, Architecture, Dependencies, Maintainability, Documentation, Git History, and 4 language-specific skills
+- **Supply Chain Scanning**: OSV, OSS Index, deps.dev vulnerability databases
+- **SBOM Generation**: CycloneDX 1.5 and SPDX 2.3 with license compliance
+- **Policy Engine**: OPA/Rego policy-as-code evaluation
+- **Incremental Analysis**: Git diff-based analysis for PRs
+- **Benchmarking**: Performance tracking and regression detection
+
+## Authentication
+
+API endpoints require Bearer token authentication. Obtain token via `/auth/token` endpoint.
+
+```
+Authorization: Bearer <your-token>
+```
+
+## Rate Limits
+
+- Analysis endpoints: 10 requests/minute
+- Other endpoints: 100 requests/minute
+
+## Error Responses
+
+All errors follow RFC 7807 Problem Details format:
+```json
+{
+  "type": "https://example.com/errors/validation-error",
+  "title": "Validation Error",
+  "status": 422,
+  "detail": "Invalid request parameters",
+  "instance": "/api/v1/analyze"
+}
+```
+
+## Webhooks
+
+Configure webhook endpoints to receive real-time analysis completion notifications.
+        """,
+        routes=app.routes,
+    )
+    
+    openapi_schema["components"]["securitySchemes"] = {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        },
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "X-API-Key"
+        }
+    }
+    
+    openapi_schema["components"]["examples"] = {
+        "AnalysisRequest": {
+            "summary": "Basic analysis request",
+            "value": {
+                "repo_path": "/path/to/repo",
+                "format": "json",
+                "fail_on": "critical",
+                "no_cache": False,
+                "parallel": True
+            }
+        },
+        "AnalysisResponse": {
+            "summary": "Successful analysis response",
+            "value": {
+                "job_id": "analysis-abc123",
+                "status": "completed",
+                "overall_score": 85.5,
+                "risk_level": "low",
+                "category_scores": [
+                    {
+                        "name": "security",
+                        "score": 92.0,
+                        "weight": 3.0,
+                        "findings": [],
+                        "metrics": [],
+                        "duration_ms": 1200
+                    }
+                ],
+                "summary": "Good code quality with minor issues",
+                "strengths": ["Strong security posture", "Good test coverage"],
+                "weaknesses": ["Documentation could be improved"],
+                "files_analyzed": 42,
+                "total_lines": 12500,
+                "duration_ms": 4500
+            }
+        }
+    }
+    
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
+
+# Custom documentation endpoints
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title="Code Analysis Agent - API Documentation",
+        swagger_js_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-bundle.js",
+        swagger_css_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui.css",
+        swagger_ui_parameters={
+            "deepLinking": True,
+            "displayRequestDuration": True,
+            "docExpansion": "list",
+            "filter": True,
+            "showExtensions": True,
+            "showCommonExtensions": True,
+            "tryItOutEnabled": True,
+            "persistAuthorization": True,
+        }
+    )
+
+@app.get("/redoc", include_in_schema=False)
+async def redoc_html():
+    return get_redoc_html(
+        openapi_url=app.openapi_url,
+        title="Code Analysis Agent - API Reference",
+        redoc_js_url="https://cdn.jsdelivr.net/npm/redoc@2.1.0/bundles/redoc.standalone.js",
+    )
+
+@app.get("/openapi.json", include_in_schema=False)
+async def openapi_json():
+    from fastapi.responses import JSONResponse
+    return JSONResponse(custom_openapi())
 
 app.add_middleware(
     CORSMiddleware,

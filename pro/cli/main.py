@@ -383,6 +383,83 @@ def sbom(ctx, repo_path, format, output):
 
 
 @cli.command()
+@click.argument('sbom_path', type=click.Path(exists=True))
+@click.option('--mode', type=click.Choice(['keyless', 'key']), default='keyless', help='Signing mode')
+@click.option('--identity', help='OIDC identity for keyless signing')
+@click.option('--key', 'private_key', type=click.Path(exists=True), help='Private key path for key-based signing')
+@click.option('--password', help='Password for private key')
+@click.option('--output-dir', type=click.Path(), help='Output directory for signatures')
+@click.pass_context
+def sbom_sign(ctx, sbom_path, mode, identity, private_key, password, output_dir):
+    """Sign an SBOM using Cosign/Sigstore."""
+    from pro.sbom.signer import SBOMSigner, SigningMode, sign_sbom
+    
+    signer = SBOMSigner()
+    if not signer._verify_cosign():
+        console.print("[red]cosign not found. Install with: go install github.com/sigstore/cosign/v2/cmd/cosign@latest[/red]")
+        return
+    
+    console.print(f"[blue]Signing SBOM: {sbom_path}[/blue]")
+    console.print(f"[blue]Mode: {mode}[/blue]")
+    
+    if mode == 'keyless':
+        result = signer.sign_keyless(sbom_path, identity=identity, output_dir=output_dir)
+    else:
+        if not private_key:
+            console.print("[red]Private key required for key-based signing[/red]")
+            return
+        result = signer.sign_with_key(sbom_path, private_key, password, output_dir)
+    
+    if result.success:
+        console.print("[green]SBOM signed successfully![/green]")
+        if result.bundle_path:
+            console.print(f"Bundle: {result.bundle_path}")
+        if result.signature_path:
+            console.print(f"Signature: {result.signature_path}")
+        if result.certificate_path:
+            console.print(f"Certificate: {result.certificate_path}")
+    else:
+        console.print(f"[red]Signing failed: {result.error}[/red]")
+
+
+@cli.command()
+@click.argument('sbom_path', type=click.Path(exists=True))
+@click.option('--bundle', type=click.Path(exists=True), help='Sigstore bundle path')
+@click.option('--signature', type=click.Path(exists=True), help='Signature file path')
+@click.option('--certificate', type=click.Path(exists=True), help='Certificate file path')
+@click.option('--public-key', type=click.Path(exists=True), help='Public key path')
+@click.option('--identity', help='Expected signer identity')
+@click.pass_context
+def sbom_verify(ctx, sbom_path, bundle, signature, certificate, public_key, identity):
+    """Verify an SBOM signature using Cosign/Sigstore."""
+    from pro.sbom.signer import SBOMSigner
+    
+    signer = SBOMSigner()
+    if not signer._verify_cosign():
+        console.print("[red]cosign not found. Install with: go install github.com/sigstore/cosign/v2/cmd/cosign@latest[/red]")
+        return
+    
+    console.print(f"[blue]Verifying SBOM: {sbom_path}[/blue]")
+    
+    if bundle:
+        result = signer.verify_signature(sbom_path, bundle_path=str(bundle), identity=identity)
+    elif signature and certificate:
+        result = signer.verify_signature(sbom_path, signature_path=str(signature), certificate_path=str(certificate))
+    elif public_key:
+        result = signer.verify_signature(sbom_path, public_key_path=str(public_key))
+    else:
+        console.print("[red]Provide --bundle, --signature + --certificate, or --public-key[/red]")
+        return
+    
+    if result.valid:
+        console.print("[green]✓ SBOM signature is VALID[/green]")
+        if result.signer_identity:
+            console.print(f"Signer: {result.signer_identity}")
+    else:
+        console.print(f"[red]✗ SBOM signature INVALID: {result.error}[/red]")
+
+
+@cli.command()
 @click.argument('rules_file', type=click.Path(exists=True))
 @click.argument('repo_path', type=click.Path(exists=True, file_okay=False, dir_okay=True))
 @click.option('--output', '-o', type=click.Path(), help='Output file')
@@ -482,6 +559,119 @@ def compare(ctx, baseline, current, format, output, threshold):
         console.print(f"[green]Report saved to {output}[/green]")
     else:
         console.print(report)
+
+
+@cli.command()
+@click.argument('policies_dir', type=click.Path())
+@click.argument('analysis_file', type=click.Path(exists=True))
+@click.option('--output', '-o', type=click.Path(), help='Output file')
+@click.pass_context
+def policy_eval(ctx, policies_dir, analysis_file, output):
+    """Evaluate analysis result against OPA/Rego policies."""
+    from pro.policy.engine import PolicyManager
+    
+    with open(analysis_file) as f:
+        analysis_data = json.load(f)
+    
+    console.print(f"[blue]Evaluating policies from: {policies_dir}[/blue]")
+    console.print(f"[blue]Analysis file: {analysis_file}[/blue]")
+    
+    manager = PolicyManager(policies_dir)
+    result = manager.evaluate_analysis(analysis_data)
+    
+    # Display results
+    decision_color = {
+        "allow": "green",
+        "warn": "yellow", 
+        "deny": "red"
+    }.get(result.overall_decision.value, "white")
+    
+    console.print(f"\n[{decision_color}]Overall Decision: {result.overall_decision.value.upper()}[/{decision_color}]")
+    console.print(f"Passed: {result.passed}, Failed: {result.failed}, Warnings: {result.warnings}")
+    
+    table = Table(title="Policy Results")
+    table.add_column("Policy")
+    table.add_column("Decision")
+    table.add_column("Message")
+    table.add_column("Violations")
+    
+    for r in result.policy_results:
+        color = {"allow": "green", "warn": "yellow", "deny": "red"}.get(r.decision.value, "white")
+        table.add_row(
+            r.policy_id,
+            f"[{color}]{r.decision.value}[/{color}]",
+            r.message,
+            str(len(r.violations))
+        )
+    
+    console.print(table)
+    
+    if output:
+        output_data = {
+            "overall_decision": result.overall_decision.value,
+            "passed": result.passed,
+            "failed": result.failed,
+            "warnings": result.warnings,
+            "evaluated_at": result.evaluated_at,
+            "policies": [
+                {
+                    "policy_id": r.policy_id,
+                    "decision": r.decision.value,
+                    "message": r.message,
+                    "violations": r.violations,
+                    "metadata": r.metadata
+                }
+                for r in result.policy_results
+            ]
+        }
+        with open(output, 'w') as f:
+            json.dump(output_data, f, indent=2)
+        console.print(f"[green]Results saved to {output}[/green]")
+
+
+@cli.command()
+@click.argument('policies_dir', type=click.Path())
+@click.option('--output-dir', '-o', type=click.Path(), help='Output directory for policy files')
+@click.pass_context
+def policy_export(ctx, policies_dir, output_dir):
+    """Export built-in policies to directory."""
+    from pro.policy.engine import PolicyManager
+    
+    manager = PolicyManager(policies_dir)
+    output = output_dir or policies_dir
+    manager.export_policies(output)
+    console.print(f"[green]Policies exported to {output}[/green]")
+
+
+@cli.command()
+@click.argument('policies_dir', type=click.Path())
+@click.argument('policy_id')
+@click.option('--rego', '-r', type=click.Path(exists=True), help='Rego file to import')
+@click.option('--name', '-n', help='Policy name')
+@click.pass_context
+def policy_add(ctx, policies_dir, policy_id, rego, name):
+    """Add a custom policy."""
+    from pro.policy.engine import PolicyManager
+    
+    manager = PolicyManager(policies_dir)
+    
+    if rego:
+        rego_content = Path(rego).read_text()
+    else:
+        # Create template
+        rego_content = f'''package codeanalysis
+
+# {name or policy_id}
+# Custom policy - replace with your logic
+
+result := {{
+    "decision": "allow",
+    "policy": "{policy_id}",
+    "message": "Custom policy passed"
+}}'''
+    
+    manager.add_custom_policy(policy_id, rego_content)
+    console.print(f"[green]Policy '{policy_id}' added to {policies_dir}[/green]")
 
 
 if __name__ == '__main__':
