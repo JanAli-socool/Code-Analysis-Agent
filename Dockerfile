@@ -12,12 +12,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Install Python dependencies system-wide
 COPY pro/requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Install additional tools for analysis
-RUN pip install --no-cache-dir --user \
+RUN pip install --no-cache-dir \
     cyclonedx-python-lib \
     pip-audit \
     mutmut
@@ -32,12 +32,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \
     && rm -rf /var/lib/apt/lists/*
-
-# Copy Python packages from builder
-COPY --from=builder /root/.local /root/.local
-
-# Make sure scripts in .local are usable
-ENV PATH=/root/.local/bin:$PATH
 
 # Copy application code
 COPY pro/ ./pro/
@@ -54,7 +48,7 @@ USER analyzer
 
 # Set Python path
 ENV PYTHONPATH=/app
-ENV PATH=/root/.local/bin:$PATH
+ENV PATH=/usr/local/bin:$PATH
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
