@@ -1,5 +1,5 @@
-# Code Analysis Agent - Single-stage Dockerfile (forces fresh install)
-# BUILD_DATE=20240901-6
+# Code Analysis Agent - Dockerfile with API server
+# BUILD_DATE=20240901-7
 
 FROM python:3.12-slim
 
@@ -14,13 +14,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Python dependencies system-wide
 COPY pro/requirements.txt .
-RUN echo "BUILD_DATE=20240901-6" && pip install --no-cache-dir -r requirements.txt
+RUN echo "BUILD_DATE=20240901-7" && pip install --no-cache-dir -r requirements.txt
 
 # Install additional tools for analysis
 RUN pip install --no-cache-dir \
     cyclonedx-python-lib \
     pip-audit \
-    mutmut
+    mutmut \
+    uvicorn[standard]
 
 # Copy application code
 COPY pro/ ./pro/
@@ -39,10 +40,12 @@ USER analyzer
 ENV PYTHONPATH=/app
 ENV PATH=/usr/local/bin:$PATH
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -m pro.cli --version || exit 1
+# Expose port
+EXPOSE 8000
 
-# Default command
-ENTRYPOINT ["python", "-m", "pro.cli"]
-CMD ["--help"]
+# Health check - check API endpoint
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run API server
+CMD ["uvicorn", "pro.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
