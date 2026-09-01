@@ -93,13 +93,14 @@ class JavaScriptSkill:
     def _run_eslint(self, repo_path: str, js_files: Dict[str, str]) -> List[JSFinding]:
         findings = []
         
-        # Check if eslint is available
+        # Check if eslint is available - use shorter timeout and handle missing npx
         try:
             result = subprocess.run(['npx', 'eslint', '--version'], 
-                                  capture_output=True, text=True, timeout=10)
+                                  capture_output=True, text=True, timeout=5)
             if result.returncode != 0:
                 return findings
-        except FileNotFoundError:
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            # eslint/npx not available or too slow, skip gracefully
             return findings
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -110,12 +111,12 @@ class JavaScriptSkill:
                 with open(full_path, 'w') as f:
                     f.write(content)
 
-            # Run eslint
+            # Run eslint with shorter timeout for CI
             try:
                 result = subprocess.run([
                     'npx', 'eslint', '.', '--format', 'json',
                     '--ext', '.js,.jsx,.ts,.tsx,.mjs,.cjs'
-                ], cwd=tmpdir, capture_output=True, text=True, timeout=120)
+                ], cwd=tmpdir, capture_output=True, text=True, timeout=30)
                 
                 if result.returncode in (0, 1):  # 0 = no issues, 1 = issues found
                     eslint_results = json.loads(result.stdout) if result.stdout else []

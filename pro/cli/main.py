@@ -95,7 +95,7 @@ def analyze(ctx, repo_path, format, output, no_cache, parallel, fail_on):
         console.print(f"[green]HTML report saved to {output_path}[/green]")
     
     # Exit code based on risk level
-    risk_levels = {'critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'none': 4}
+    risk_levels = {'critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'none': -1}
     threshold = risk_levels.get(fail_on, 0)
     current = risk_levels.get(result.risk_level, 4)
     

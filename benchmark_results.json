@@ -1,16 +1,16 @@
 {
-  "timestamp": 1788207233.858831,
+  "timestamp": 1788281173.2566428,
   "results": [
     {
       "repo_name": "good_repo",
       "repo_path": "test_repos/good_repo",
       "iterations": 1,
       "times_ms": [
-        41.348200058564544
+        32.010699971579015
       ],
-      "avg_time_ms": 41.348200058564544,
-      "min_time_ms": 41.348200058564544,
-      "max_time_ms": 41.348200058564544,
+      "avg_time_ms": 32.010699971579015,
+      "min_time_ms": 32.010699971579015,
+      "max_time_ms": 32.010699971579015,
       "std_dev_ms": 0.0,
       "cache_hits": 0,
       "cache_misses": 1,
@@ -24,6 +24,6 @@
   "summary": {
     "total_repos": 1,
     "total_iterations": 1,
-    "avg_time_overall": 41.348200058564544
+    "avg_time_overall": 32.010699971579015
   }
 }
