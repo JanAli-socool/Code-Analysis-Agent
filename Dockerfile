@@ -1,43 +1,26 @@
-# Code Analysis Agent - Dockerfile
-# Multi-stage build for smaller production image
+# Code Analysis Agent - Single-stage Dockerfile (forces fresh install)
+# BUILD_DATE=20240901-6
 
-# Build stage
-FROM python:3.12-slim as builder
+FROM python:3.12-slim
 
 WORKDIR /app
 
-# Force cache invalidation - copy build-id first (changes every deploy)
-COPY pro/.build-id .
-
-# Force cache invalidation - this arg is used in pip install
-ARG CACHE_BUST=20240901-5
-
-# Install build dependencies
+# Install runtime dependencies + build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     git \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies system-wide (CACHE_BUST forces rebuild)
+# Install Python dependencies system-wide
 COPY pro/requirements.txt .
-RUN echo "CACHE_BUST=${CACHE_BUST}" && pip install --no-cache-dir -r requirements.txt
+RUN echo "BUILD_DATE=20240901-6" && pip install --no-cache-dir -r requirements.txt
 
 # Install additional tools for analysis
 RUN pip install --no-cache-dir \
     cyclonedx-python-lib \
     pip-audit \
     mutmut
-
-# Production stage
-FROM python:3.12-slim
-
-WORKDIR /app
-
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
 
 # Copy application code
 COPY pro/ ./pro/
