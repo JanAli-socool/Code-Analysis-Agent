@@ -425,6 +425,10 @@ class ProfessionalOrchestrator:
                 if col_end is None:
                     col_end = 1
                 
+                # SARIF requires startColumn >= 1, endColumn >= startColumn
+                start_column = max(1, int(col_start))
+                end_column = max(start_column, int(col_end))
+                
                 sarif["runs"][0]["results"].append({
                     "ruleId": rule_map[rule_key],
                     "level": self._severity_to_sarif(finding.get("severity", "medium")),
@@ -435,8 +439,8 @@ class ProfessionalOrchestrator:
                             "region": {
                                 "startLine": int(line_start),
                                 "endLine": int(line_end),
-                                "startColumn": int(col_start),
-                                "endColumn": int(col_end)
+                                "startColumn": start_column,
+                                "endColumn": end_column
                             }
                         }
                     }],
