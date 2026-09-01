@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: code-analysis-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"
+    # Optional: Add custom domain later
+    # domains:
+    #   - api.yourdomain.com
+
+  # Optional: Redis for caching (if needed later)
+  # - type: redis
+  #   name: code-analysis-cache
+  #   plan: free
+  #   maxmemoryPolicy: allkeys-lru
