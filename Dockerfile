@@ -6,8 +6,11 @@ FROM python:3.12-slim as builder
 
 WORKDIR /app
 
+# Force cache invalidation - copy build-id first (changes every deploy)
+COPY pro/.build-id .
+
 # Force cache invalidation - this arg is used in pip install
-ARG CACHE_BUST=20240901-4
+ARG CACHE_BUST=20240901-5
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
