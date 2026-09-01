@@ -9,6 +9,9 @@ pip-audit>=2.6.0
 pyyaml>=6.0
 pydantic>=2.0.0
 
+# Web framework
+fastapi>=0.100.0
+
 # Reporting
 rich>=13.0.0
 
@@ -24,4 +27,4 @@ mutmut>=2.4.0
 mypy>=1.0.0
 types-requests>=2.31.0
 
-# CACHE_BUST=20240901-3
+# CACHE_BUST=20240901-4
