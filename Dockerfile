@@ -6,6 +6,9 @@ FROM python:3.12-slim as builder
 
 WORKDIR /app
 
+# Cache bust - change this to force rebuild
+ARG CACHE_BUST=20240901
+
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
