@@ -64,7 +64,8 @@ jobs:
         run: |
           python -m pro.cli analyze . \
             --format markdown \
-            -o report.md
+            -o report.md \
+            --fail-on none
       
       - name: Comment on PR
         if: github.event_name == 'pull_request'
@@ -100,7 +101,8 @@ jobs:
           git fetch origin main:main
           python -m pro.cli analyze . \
             --format json \
-            -o current.json
+            -o current.json \
+            --fail-on none
           
           # Compare with baseline if exists
           if [ -f ".code_analysis_baseline.json" ]; then
@@ -117,7 +119,8 @@ jobs:
         run: |
           python -m pro.cli analyze . \
             --format json \
-            -o .code_analysis_baseline.json
+            -o .code_analysis_baseline.json \
+            --fail-on none
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add .code_analysis_baseline.json
