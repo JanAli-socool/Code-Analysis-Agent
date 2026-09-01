@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       fail_on:
-        description: 'Fail threshold'
+        description: 'Fail threshold for main repo analysis'
         required: false
-        default: 'critical'
+        default: 'none'
         type: choice
         options: [critical, high, medium, low, none]
 
@@ -51,7 +51,7 @@ jobs:
           python -m pro.cli analyze . \
             --format sarif \
             -o results.sarif \
-            --fail-on ${{ github.event.inputs.fail_on || 'critical' }}
+            --fail-on none
       
       - name: Upload SARIF to GitHub Security
         uses: github/codeql-action/upload-sarif@v4

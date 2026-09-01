@@ -139,3 +139,8 @@ baseline.json
 benchmark_results.json
 rules.yaml
 evaluation/results.json
+
+# Allow test_repos files (needed for CI/CD benchmarks)
+!test_repos/
+test_repos/*/.code_analysis_cache/
+test_repos/*/__pycache__/
