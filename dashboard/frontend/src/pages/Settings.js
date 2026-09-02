@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Shield, Bell, Key, Database, Globe, Moon, Save, TestTube, Terminal, Download, Upload, Trash2 } from 'lucide-react';
+import { User, Shield, Bell, Key, Database, Globe, Moon, Save, TestTube, Terminal, Download, Upload, Trash2, Code } from 'lucide-react';
 
 function Settings() {
   const [activeTab, setActiveTab] = useState('profile');

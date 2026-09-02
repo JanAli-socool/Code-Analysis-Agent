@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, BarChart2, Calendar, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Download, FileText, BarChart2, Calendar, Filter, ChevronLeft, ChevronRight, Shield } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
 function Reports() {
