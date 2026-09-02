@@ -22,10 +22,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: dashboard/frontend/package-lock.json
 
-      - name: Generate package-lock.json
-        run: npm install --package-lock-only
-        working-directory: dashboard/frontend
-
       - name: Install dependencies
         run: npm install
         working-directory: dashboard/frontend
