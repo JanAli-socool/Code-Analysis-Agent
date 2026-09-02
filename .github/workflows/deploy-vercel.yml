@@ -23,7 +23,7 @@ jobs:
           cache-dependency-path: dashboard/frontend/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --include=dev
         working-directory: dashboard/frontend
 
       - name: Run tests
@@ -34,6 +34,8 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: dashboard/frontend
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
