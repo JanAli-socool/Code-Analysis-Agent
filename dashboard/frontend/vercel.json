@@ -4,6 +4,7 @@
   "framework": "create-react-app",
   "installCommand": "npm install",
   "devCommand": "npm start",
+  "rootDirectory": "dashboard/frontend",
   "rewrites": [
     {
       "source": "/(.*)",
