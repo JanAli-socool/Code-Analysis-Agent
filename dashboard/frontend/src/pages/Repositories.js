@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Filter, Plus, Code, Database, TrendingUp, AlertTriangle, CheckCircle, MoreVertical, Download, RefreshCw } from 'lucide-react';
+import { Search, Filter, Plus, Code, Database, TrendingUp, TrendingDown, AlertTriangle, CheckCircle, MoreVertical, Download, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
