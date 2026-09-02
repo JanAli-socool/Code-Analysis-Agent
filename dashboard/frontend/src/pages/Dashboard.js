@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Clock, Database, Code, FileText, RefreshCw } from 'lucide-react';
+import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Clock, Database, Code, FileText, RefreshCw, Shield } from 'lucide-react';
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 import axios from 'axios';
 

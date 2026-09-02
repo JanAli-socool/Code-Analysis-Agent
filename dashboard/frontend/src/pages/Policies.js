@@ -185,7 +185,12 @@ function Policies() {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Rego Policy</label>
-                  <textarea className="form-input" style={{fontFamily: 'monospace', fontSize: '0.8rem', minHeight: '200px', resize: 'vertical'}} value={formData.rego} onChange={(e) => setFormData({...formData, rego: e.target.value})} placeholder="package codeanalysis\n\nresult := {\n  \"decision\": \"allow\",\n  \"message\": \"Policy passed\"\n}" required />
+                  <textarea className="form-input" style={{fontFamily: 'monospace', fontSize: '0.8rem', minHeight: '200px', resize: 'vertical'}} value={formData.rego} onChange={(e) => setFormData({...formData, rego: e.target.value})} placeholder={`package codeanalysis
+
+result := {
+  "decision": "allow",
+  "message": "Policy passed"
+}`} required />
                 </div>
               </div>
               <div className="modal-footer">

@@ -103,7 +103,7 @@ function Settings() {
                   <h3 style={{ marginBottom: '24px', fontSize: '1.1rem' }}>Notification Preferences</h3>
                   
                   <div style={{ marginBottom: '32px' }}>
-                    <h4 style={{ marginBottom: '16px', fontSize: '0.9rem', fontWeight: 600' }}>Delivery Channels</h4>
+                    <h4 style={{ marginBottom: '16px', fontSize: '0.9rem', fontWeight: 600 }}>Delivery Channels</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {['email', 'slack', 'webhook'].map(channel => (
                         <label key={channel} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', background: 'var(--surface-hover)', borderRadius: '8px' }}>
@@ -115,7 +115,7 @@ function Settings() {
                   </div>
 
                   <div style={{ marginBottom: '32px' }}>
-                    <h4 style={{ marginBottom: '16px', fontSize: '0.9rem', fontWeight: 600' }}>Severity Alerts</h4>
+                    <h4 style={{ marginBottom: '16px', fontSize: '0.9rem', fontWeight: 600 }}>Severity Alerts</h4>
                     <p style={{ color: 'var(--text-secondary)', marginBottom: '16px', fontSize: '0.85rem' }}>Receive notifications for findings of these severity levels</p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {['critical', 'high', 'medium', 'low'].map(severity => (

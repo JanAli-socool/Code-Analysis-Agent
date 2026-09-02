@@ -94,7 +94,7 @@ function Reports() {
                   <td><strong>{report.repo}</strong></td>
                   <td style={{whiteSpace: 'nowrap'}}>{report.date}</td>
                   <td>
-                    <span style={{background: 'var(--surface-hover)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 500'}}>
+                    <span style={{background: 'var(--surface-hover)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 500}}>
                       {report.type}
                     </span>
                   </td>
@@ -106,7 +106,7 @@ function Reports() {
                   </td>
                   <td>{report.findings}</td>
                   <td>
-                    <span style={{background: 'var(--surface-hover)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 500'}}>
+                    <span style={{background: 'var(--surface-hover)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 500}}>
                       {report.format}
                     </span>
                   </td>

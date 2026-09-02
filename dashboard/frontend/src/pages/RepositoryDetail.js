@@ -89,7 +89,7 @@ function RepositoryDetail() {
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
             <h1 style={{ fontSize: '1.75rem', fontWeight: 700 }}>{repo.name}</h1>
-            <span style={{background: 'var(--surface-hover)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 500'}}>
+            <span style={{background: 'var(--surface-hover)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 500}}>
               {repo.language}
             </span>
             <span className={`badge ${riskColors[repo.risk]}`}>
