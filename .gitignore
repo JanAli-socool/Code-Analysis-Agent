@@ -108,6 +108,8 @@ Thumbs.db
 *.json
 !requirements.txt
 !pro/requirements.txt
+!dashboard/frontend/package.json
+!dashboard/frontend/package-lock.json
 !.github/workflows/*.yml
 !docker-compose.yml
 !Dockerfile
