@@ -46,6 +46,7 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
           working-directory: ./dashboard/frontend
+          scope: ${{ secrets.VERCEL_ORG_ID }}
 
       - name: Preview Deployment URL
         if: github.event_name == 'pull_request'
