@@ -108,6 +108,7 @@ Thumbs.db
 *.json
 !requirements.txt
 !pro/requirements.txt
+!vercel.json
 !dashboard/frontend/package.json
 !dashboard/frontend/package-lock.json
 !.github/workflows/*.yml
