@@ -1,8 +1,7 @@
 {
-  "buildCommand": "cd dashboard/frontend && npm run build",
+  "buildCommand": "cd dashboard/frontend && npm install --include=dev && npm run build",
   "outputDirectory": "dashboard/frontend/build",
   "framework": "create-react-app",
-  "installCommand": "cd dashboard/frontend && npm install --include=dev",
   "devCommand": "cd dashboard/frontend && npm start",
   "rewrites": [
     {
