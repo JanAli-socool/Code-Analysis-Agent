@@ -157,7 +157,9 @@ function Repositories() {
                   </td>
                 </tr>
               ) : (
-                filteredRepos.map((repo) => (
+                filteredRepos.map((repo) => {
+                  return (
+                    <tr key={repo.id}>
                   <tr key={repo.id}>
                     <td>
                       <Link to={`/repositories/${repo.id}`} style={{color: 'inherit', textDecoration: 'none', fontWeight: 500}}>
@@ -208,7 +210,8 @@ function Repositories() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
             </tbody>
           </table>
         </div>
