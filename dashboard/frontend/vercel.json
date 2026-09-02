@@ -2,6 +2,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "build",
   "framework": "create-react-app",
+  "installCommand": "npm ci",
+  "devCommand": "npm start",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -35,5 +37,5 @@
         }
       ]
     }
-  }
+  ]
 }
