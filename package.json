@@ -1,0 +1,13 @@
+{
+  "name": "code-analysis-agent",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd dashboard/frontend && npm run build",
+    "install": "cd dashboard/frontend && npm install --include=dev",
+    "dev": "cd dashboard/frontend && npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

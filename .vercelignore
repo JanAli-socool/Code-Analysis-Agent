@@ -1,0 +1,45 @@
+# Ignore Python backend files during frontend build
+pro/
+baseline/
+advanced/
+evaluation/
+test_repos/
+*.py
+requirements.txt
+pro/requirements.txt
+Dockerfile
+docker-compose.yml
+*.md
+!dashboard/frontend/**
+!.github/workflows/**
+
+# Ignore build outputs
+build/
+dist/
+*.log
+*.sarif
+*.json
+!dashboard/frontend/package.json
+!dashboard/frontend/package-lock.json
+!dashboard/frontend/vercel.json
+!dashboard/frontend/public/**
+!dashboard/frontend/src/**
+
+# Ignore IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS
+.DS_Store
+Thumbs.db
+
+# Ignore caches
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.code_analysis_cache/
