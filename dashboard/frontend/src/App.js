@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, GitBranch, Shield, 
-  BarChart2, Settings
+  BarChart2, Settings,
+  Menu, Bell, RefreshCw, ChevronRight
 } from 'lucide-react';
 import axios from 'axios';
 import Dashboard from './pages/Dashboard';
