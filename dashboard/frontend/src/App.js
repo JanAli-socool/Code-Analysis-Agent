@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, GitBranch, FileCode, Shield, 
-  BarChart2, Settings, ChevronLeft, ChevronRight,
-  Menu, X, Bell, User, LogOut, Search,
-  RefreshCw, Download, Filter, Plus
+  LayoutDashboard, GitBranch, Shield, 
+  BarChart2, Settings
 } from 'lucide-react';
 import axios from 'axios';
 import Dashboard from './pages/Dashboard';
@@ -89,9 +87,6 @@ function Header({ onMenuClick, title }) {
         </div>
       </div>
       <div className="header-right">
-        <button className="header-btn" aria-label="Search">
-          <Search size={20} />
-        </button>
         <button className="header-btn" aria-label="Notifications">
           <Bell size={20} />
         </button>
@@ -152,4 +147,4 @@ function App() {
   );
 }
 
-export default App;// Trigger Vercel deploy
+export default App;

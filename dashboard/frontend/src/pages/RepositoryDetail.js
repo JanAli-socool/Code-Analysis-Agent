@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, AlertTriangle, CheckCircle, Shield, Code, FileText, Clock, TrendingUp, Download, RefreshCw, ChevronRight, Filter, Search } from 'lucide-react';
+import { ArrowLeft, AlertTriangle, CheckCircle, Shield, Code, FileText, Clock, TrendingUp, RefreshCw, ChevronRight, Search } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 function RepositoryDetail() {

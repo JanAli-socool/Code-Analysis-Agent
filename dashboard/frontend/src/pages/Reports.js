@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, BarChart2, Calendar, Filter, ChevronLeft, ChevronRight, Shield } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import { Download, FileText, Shield, BarChart2 } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 function Reports() {
   const [reports, setReports] = useState([]);

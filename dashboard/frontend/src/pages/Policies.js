@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Plus, Edit, Trash2, FileText, Download, Upload, Search, Filter, AlertTriangle, CheckCircle, X, Code, Settings } from 'lucide-react';
+import { Shield, Plus, Edit, Trash2, Search, X } from 'lucide-react';
 
 function Policies() {
   const [policies, setPolicies] = useState([]);
