@@ -15,46 +15,90 @@ function RepositoryDetail() {
   }, [id]);
 
   const fetchRepoData = async () => {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    setRepo({
-      id: parseInt(id),
-      name: 'payment-service',
-      language: 'Python',
-      description: 'Core payment processing microservice',
-      lastAnalyzed: '2024-03-15',
-      score: 85,
-      risk: 'low',
-      status: 'completed',
-      linesOfCode: 12543,
-      filesCount: 142,
-      commitHash: 'a1b2c3d4e5f6',
-      branch: 'main',
-      findings: [
+    try {
+      // Simulate API call with different data per repository
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      // Generate different data based on repository ID
+      const repoId = parseInt(id) || 1;
+      const repoNames = [
+        'payment-service', 'user-api', 'auth-service', 'notification-service',
+        'order-service', 'inventory-api', 'analytics-engine', 'gateway-service'
+      ];
+      const languages = ['Python', 'JavaScript', 'Go', 'TypeScript', 'Java', 'Python', 'Rust', 'Go'];
+      const scores = [85, 72, 58, 91, 63, 79, 88, 74];
+      const risks = ['low', 'medium', 'high', 'low', 'high', 'medium', 'low', 'medium'];
+      
+      const repoIndex = (repoId - 1) % 8;
+      
+      // Generate different findings based on repo
+      const findings = [
         { id: 1, category: 'security', severity: 'high', title: 'Hardcoded API Key', message: 'API key found in config.py', file: 'config.py', line: 42, recommendation: 'Use environment variables' },
         { id: 2, category: 'complexity', severity: 'medium', title: 'High Cyclomatic Complexity', message: 'Function process_payment has CC of 18', file: 'payment.py', line: 120, recommendation: 'Refactor into smaller functions' },
         { id: 3, category: 'testing', severity: 'medium', title: 'Low Test Coverage', message: 'Module payment has 45% coverage', file: 'payment.py', recommendation: 'Add unit tests for edge cases' },
         { id: 4, category: 'dependencies', severity: 'low', title: 'Outdated Dependency', message: 'requests 2.25.1 is outdated', file: 'requirements.txt', line: 3, recommendation: 'Update to 2.31.0' },
         { id: 5, category: 'architecture', severity: 'low', title: 'Circular Dependency', message: 'Circular import between models and services', file: 'models/__init__.py', recommendation: 'Restructure imports' },
-      ],
-      categoryScores: [
-        { category: 'Security', score: 78, weight: 3.0 },
-        { category: 'Complexity', score: 82, weight: 2.0 },
-        { category: 'Testing', score: 72, weight: 2.0 },
-        { category: 'Architecture', score: 88, weight: 2.0 },
-        { category: 'Maintainability', score: 85, weight: 1.5 },
-        { category: 'Dependencies', score: 90, weight: 1.0 },
-        { category: 'Documentation', score: 80, weight: 0.5 },
-        { category: 'Git History', score: 92, weight: 0.5 },
-      ],
-      metrics: {
-        totalFindings: 45,
-        critical: 0,
-        high: 2,
-        medium: 12,
-        low: 31,
-      }
-    });
-    setLoading(false);
+      ];
+
+      // Vary findings based on repo
+      const repoFindings = findings.slice(0, 3 + (repoId % 3));
+      
+      // Vary scores based on repo
+      const baseScore = scores[repoIndex];
+      const categoryScores = [
+        { category: 'Security', score: Math.max(0, 78 + (repoId % 10) - 5), weight: 3.0 },
+        { category: 'Complexity', score: Math.max(0, 82 + (repoId % 8) - 4), weight: 2.0 },
+        { category: 'Testing', score: Math.max(0, 72 + (repoId % 12) - 6), weight: 2.0 },
+        { category: 'Architecture', score: Math.max(0, 88 + (repoId % 8) - 4), weight: 2.0 },
+        { category: 'Maintainability', score: Math.max(0, 85 + (repoId % 10) - 5), weight: 1.5 },
+        { category: 'Dependencies', score: Math.max(0, 90 + (repoId % 8) - 4), weight: 1.0 },
+        { category: 'Documentation', score: Math.max(0, 80 + (repoId % 10) - 5), weight: 0.5 },
+        { category: 'Git History', score: Math.max(0, 92 + (repoId % 6) - 3), weight: 0.5 },
+      ];
+
+      setRepo({
+        id: parseInt(id),
+        name: repoNames[repoIndex],
+        language: languages[repoIndex],
+        description: 'Core payment processing microservice',
+        lastAnalyzed: '2024-03-15',
+        score: scores[repoIndex],
+        risk: risks[repoIndex],
+        status: 'completed',
+        linesOfCode: 12543 + (repoId * 1000),
+        filesCount: 142 + (repoId * 10),
+        commitHash: 'a1b2c3d4e5f6',
+        branch: 'main',
+        findings: [
+          { id: 1, category: 'security', severity: 'high', title: 'Hardcoded API Key', message: 'API key found in config.py', file: 'config.py', line: 42, recommendation: 'Use environment variables' },
+          { id: 2, category: 'complexity', severity: 'medium', title: 'High Cyclomatic Complexity', message: 'Function process_payment has CC of 18', file: 'payment.py', line: 120, recommendation: 'Refactor into smaller functions' },
+          { id: 3, category: 'testing', severity: 'medium', title: 'Low Test Coverage', message: 'Module payment has 45% coverage', file: 'payment.py', recommendation: 'Add unit tests for edge cases' },
+          { id: 4, category: 'dependencies', severity: 'low', title: 'Outdated Dependency', message: 'requests 2.25.1 is outdated', file: 'requirements.txt', line: 3, recommendation: 'Update to 2.31.0' },
+          { id: 5, category: 'architecture', severity: 'low', title: 'Circular Dependency', message: 'Circular import between models and services', file: 'models/__init__.py', recommendation: 'Restructure imports' },
+        ],
+        categoryScores: [
+          { category: 'Security', score: 78, weight: 3.0 },
+          { category: 'Complexity', score: 82, weight: 2.0 },
+          { category: 'Testing', score: 72, weight: 2.0 },
+          { category: 'Architecture', score: 88, weight: 2.0 },
+          { category: 'Maintainability', score: 85, weight: 1.5 },
+          { category: 'Dependencies', score: 90, weight: 1.0 },
+          { category: 'Documentation', score: 80, weight: 0.5 },
+          { category: 'Git History', score: 92, weight: 0.5 },
+        ],
+        metrics: {
+          totalFindings: 45,
+          critical: 0,
+          high: 2,
+          medium: 12,
+          low: 31,
+        }
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to fetch repo data:', error);
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -110,16 +154,16 @@ function RepositoryDetail() {
       </div>
 
       <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-        <Link to="/repositories" className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'overview' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'overview' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
+        <Link to={`/repositories/${repo.id}?tab=overview`} className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'overview' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'overview' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
           <Code size={16} style={{marginRight: '6px'}} /> Overview
         </Link>
-        <Link to="/repositories" className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'findings' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'findings' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
+        <Link to={`/repositories/${repo.id}?tab=findings`} className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'findings' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'findings' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
           <AlertTriangle size={16} style={{marginRight: '6px'}} /> Findings ({repo.metrics?.totalFindings || 0})
         </Link>
-        <Link to="/repositories" className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'metrics' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'metrics' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
+        <Link to={`/repositories/${repo.id}?tab=metrics`} className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'metrics' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'metrics' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
           <TrendingUp size={16} style={{marginRight: '6px'}} /> Metrics
         </Link>
-        <Link to="/repositories" className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'sbom' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'sbom' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
+        <Link to={`/repositories/${repo.id}?tab=sbom`} className="tab-btn" style={{ padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', background: activeTab === 'sbom' ? 'var(--primary)' : 'var(--surface)', color: activeTab === 'sbom' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border)' }}>
           <Shield size={16} style={{marginRight: '6px'}} /> SBOM
         </Link>
       </div>

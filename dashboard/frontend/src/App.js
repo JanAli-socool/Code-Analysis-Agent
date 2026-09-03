@@ -12,6 +12,7 @@ import RepositoryDetail from './pages/RepositoryDetail';
 import Policies from './pages/Policies';
 import Reports from './pages/Reports';
 import SettingsPage from './pages/Settings';
+import { AuthProvider } from './contexts/AuthContext';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
@@ -135,16 +136,18 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/repositories" element={<Repositories />} />
-        <Route path="/repositories/:id" element={<RepositoryDetail />} />
-        <Route path="/policies" element={<Policies />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/settings" element={<SettingsPage />} />
-      </Routes>
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/repositories" element={<Repositories />} />
+          <Route path="/repositories/:id" element={<RepositoryDetail />} />
+          <Route path="/policies" element={<Policies />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        </Routes>
+      </Layout>
+    </AuthProvider>
   );
 }
 

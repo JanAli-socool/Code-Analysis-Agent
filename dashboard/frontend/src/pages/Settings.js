@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { User, Shield, Bell, Key, Database, Globe, Moon, Save, TestTube, Terminal, Download, Upload, Trash2, Code } from 'lucide-react';
+import React, { useState, useEffect, useContext } from 'react';
+import { User, Shield, Bell, Key, Database, Globe, Moon, Save, TestTube, Terminal, Download, Upload, Trash2, Code, LogOut, Github } from 'lucide-react';
+import { AuthContext } from '../contexts/AuthContext';
 
 function Settings() {
+  const { user, logout, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('profile');
   const [settings, setSettings] = useState({
-    profile: { name: 'John Doe', email: 'john@example.com', avatar: 'JD' },
+    profile: { name: user?.name || 'User', email: user?.email || '', avatar: user?.avatar || 'U' },
     notifications: { email: true, slack: false, webhook: false, critical: true, high: true, medium: false, low: false },
     security: { twoFactor: false, sessionTimeout: 30, apiKeys: [{ name: 'CI/CD Token', created: '2024-01-15', lastUsed: '2024-03-10' }] },
     integrations: { github: true, gitlab: false, jira: false, slack: false, teams: false },
@@ -25,6 +27,20 @@ function Settings() {
     console.log(`Saving ${tab} settings:`, settings[tab]);
     alert(`${tab.charAt(0).toUpperCase() + tab.slice(1)} settings saved!`);
   };
+
+  const handleLogin = (provider) => {
+    if (provider === 'google') {
+      window.location.href = `${process.env.REACT_APP_API_URL || 'http://localhost:8000'}/auth/google`;
+    } else if (provider === 'github') {
+      window.location.href = `${process.env.REACT_APP_API_URL || 'http://localhost:8000'}/auth/github`;
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  const avatarInitial = user?.name?.charAt(0)?.toUpperCase() || 'U';
 
   return (
     <div>
@@ -68,33 +84,57 @@ function Settings() {
               {activeTab === 'profile' && (
                 <div style={{ maxWidth: '600px' }}>
                   <h3 style={{ marginBottom: '24px', fontSize: '1.1rem' }}>Profile Information</h3>
-                  <div className="form-group">
-                    <label className="form-label">Display Name</label>
-                    <input type="text" className="form-input" defaultValue={settings.profile.name} />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Email Address</label>
-                    <input type="email" className="form-input" defaultValue={settings.profile.email} />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Avatar</label>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                      <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', fontWeight: 600 }}>
-                        {settings.profile.avatar}
+                  
+                  {!user ? (
+                    <div style={{ textAlign: 'center', padding: '48px', background: 'var(--surface-hover)', borderRadius: '12px' }}>
+                      <h3 style={{ marginBottom: '16px' }}>Sign in to manage your profile</h3>
+                      <p style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
+                        Sign in with GitHub or Google to access your profile and settings.
+                      </p>
+                      <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                        <button className="btn btn-secondary" onClick={() => handleLogin('github')}>
+                          <Github size={18} style={{ marginRight: '8px' }} />
+                          Continue with GitHub
+                        </button>
+                        <button className="btn btn-secondary" onClick={() => handleLogin('google')}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" style={{ marginRight: '8px' }}>
+                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.09 1.06-3.42 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23c4.42 0 8.16-2.5 9.7-6h-1.4c-.79.58-1.8.89-3.1.89z"/>
+                          </svg>
+                          Continue with Google
+                        </button>
                       </div>
-                      <button className="btn btn-secondary">Change Avatar</button>
                     </div>
-                  </div>
-                  <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
-                    <button className="btn btn-primary" onClick={() => handleSave('profile')}>
-                      <Save size={18} />
-                      Save Changes
-                    </button>
-                    <button className="btn btn-danger">
-                      <Trash2 size={18} />
-                      Delete Account
-                    </button>
-                  </div>
+                  ) : (
+                    <div style={{ maxWidth: '600px' }}>
+                      <h3 style={{ marginBottom: '24px', fontSize: '1.1rem' }}>Profile Information</h3>
+                      <div className="form-group">
+                        <label className="form-label">Display Name</label>
+                        <input type="text" className="form-input" defaultValue={settings.profile.name} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Email Address</label>
+                        <input type="email" className="form-input" defaultValue={settings.profile.email} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Avatar</label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', fontWeight: 600 }}>
+                            {avatarInitial}
+                          </div>
+                          <button className="btn btn-secondary">Change Avatar</button>
+                        </div>
+                      </div>
+                      <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                        <button className="btn btn-primary" onClick={() => handleSave('profile')}>
+                          <Save size={18} />
+                          Save Changes
+                        </button>
+                        <button className="btn btn-danger" onClick={handleLogout}>
+                          <LogOut size={18} />
+                          Sign Out
+                        </button>
+                      </div>
                 </div>
               )}
 
