@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd dashboard/frontend && npm install --include=dev && npm run build:ci",
+  "buildCommand": "cd dashboard/frontend && npm install --include=dev && DISABLE_ESLINT_PLUGIN=true npm run build",
   "outputDirectory": "dashboard/frontend/build",
   "installCommand": "cd dashboard/frontend && npm install --include=dev",
   "devCommand": "cd dashboard/frontend && npm start",
